@@ -38,7 +38,7 @@ window.DEEP_DIVES[101] = {
         items: [
           "<strong>Training job hogging</strong> — A single training job can hog 8 GPUs for days while inference jobs queue",
           "<strong>Memory fragmentation</strong> — GPU memory fragmentation leaves 40% of VRAM unusable",
-          "No preemption — once a job starts, nothing can interrupt it",
+          "<strong>No preemption</strong> — Once a job starts, nothing can interrupt it",
           "<strong>Over-provisioning waste</strong> — Teams over-provision to guarantee availability, burning budget"
         ]
       },
@@ -121,8 +121,8 @@ window.DEEP_DIVES[101] = {
       {
         kind: "bullets",
         items: [
-          "✅ Use MIG for inference — it's free isolation with dedicated memory",
-          "✅ Set GPU memory limits, not just GPU count, in pod specs",
+          "<strong>✅ MIG for inference</strong> — Use MIG for inference, it's free isolation with dedicated memory",
+          "<strong>✅ Memory limits</strong> — Set GPU memory limits, not just GPU count, in pod specs",
           "<strong>✅ Enable preemption</strong> — Enable preemption for low-priority jobs (research, batch processing)",
           "<strong>✅ Monitor per-pod</strong> — Monitor GPU utilization, memory, temperature, and power per-pod",
           "<strong>❌ No time-slicing for inference</strong> — Don't use time-slicing for latency-sensitive inference, context switching kills P99",
@@ -153,8 +153,8 @@ window.DEEP_DIVES[101] = {
         items: [
           "<strong>This week</strong> — Deploy DCGM exporter and measure actual GPU utilization across all jobs",
           "<strong>Next week</strong> — Identify the top 3 GPU-wasting jobs and right-size them",
-          "Week 3: Enable MIG on at least one GPU for inference workloads",
-          "Week 4: Set up queue-based scheduling with per-team quotas"
+          "<strong>Week 3</strong> — Enable MIG on at least one GPU for inference workloads",
+          "<strong>Week 4</strong> — Set up queue-based scheduling with per-team quotas"
         ]
       },
       {
@@ -305,9 +305,9 @@ window.DEEP_DIVES[102] = {
         items: [
           "<strong>✅ Continuous batching</strong> — Always enable continuous batching for autoregressive models",
           "<strong>✅ Memory headroom</strong> — Set GPU memory utilization to 85-90% — leave headroom for spikes",
-          "✅ Use prefix caching for system prompts and common prefixes",
-          "✅ Implement request-level timeouts and circuit breakers",
-          "❌ Don't load models on-demand — pre-load and keep warm",
+          "<strong>✅ Prefix caching</strong> — Use prefix caching for system prompts and common prefixes",
+          "<strong>✅ Timeouts and breakers</strong> — Implement request-level timeouts and circuit breakers",
+          "<strong>❌ No on-demand loading</strong> — Don't load models on-demand, pre-load and keep warm",
           "<strong>❌ Right-size instances</strong> — Don't serve all model sizes on the same GPU type — right-size instances",
           "<strong>❌ Tail latency matters</strong> — Don't ignore tail latency — P99 matters more than average for user experience"
         ]
@@ -612,7 +612,7 @@ window.DEEP_DIVES[104] = {
           "<strong>Pathways system</strong> — Custom Pathways system for asynchronous dispatch across pods",
           "<strong>High utilization</strong> — 57.8% hardware FLOPs utilization (HFU) — impressive at that scale",
           "<strong>Frequent checkpoints</strong> — Checkpoint every 10 minutes to prevent losing hours of training from hardware failures",
-          "Total training: 50 days on 6,144 TPU v4 chips"
+          "<strong>Total training time</strong> — 50 days on 6,144 TPU v4 chips"
         ]
       },
       {
@@ -805,11 +805,11 @@ window.DEEP_DIVES[105] = {
         kind: "bullets",
         items: [
           "<strong>✅ Start small</strong> — Start with the smallest model that could work — don't compress a 70B when a 7B might suffice",
-          "✅ Use task-specific distillation data, not general corpora",
+          "<strong>✅ Task-specific data</strong> — Use task-specific distillation data, not general corpora",
           "<strong>✅ Combine techniques</strong> — Distill first, then quantize the distilled model",
-          "✅ Measure end-to-end task quality, not just perplexity",
+          "<strong>✅ End-to-end quality</strong> — Measure end-to-end task quality, not just perplexity",
           "<strong>❌ Fine-tune first</strong> — Don't compress a model you haven't fine-tuned — fine-tune first, compress second",
-          "❌ Don't use PTQ below INT4 — quality cliff is steep",
+          "<strong>❌ No sub-INT4 PTQ</strong> — Don't use PTQ below INT4, quality cliff is steep",
           "<strong>❌ Compare on your use case</strong> — Don't compare compressed model to teacher on benchmarks — compare on YOUR use case"
         ]
       }
@@ -933,10 +933,10 @@ window.DEEP_DIVES[106] = {
       {
         kind: "bullets",
         items: [
-          "Dojo training cluster: custom D1 chips, 362 TFLOPS each, 9 PFLOPS per tile",
-          "In-car HW4: dual SoC with ~300 TOPS for real-time multi-camera inference",
-          "Why custom? At Tesla's scale, custom silicon pays for itself in 2-3 years vs. buying NVIDIA",
-          "Trade-off: 2+ year development time and $1B+ investment before seeing returns"
+          "<strong>Dojo cluster</strong> — Custom D1 chips, 362 TFLOPS each, 9 PFLOPS per tile",
+          "<strong>In-car HW4</strong> — Dual SoC with ~300 TOPS for real-time multi-camera inference",
+          "<strong>Custom ROI</strong> — At Tesla's scale, custom silicon pays for itself in 2-3 years vs. buying NVIDIA",
+          "<strong>Major trade-off</strong> — 2+ year development time and $1B+ investment before seeing returns"
         ]
       },
       {
@@ -961,9 +961,9 @@ window.DEEP_DIVES[106] = {
       {
         kind: "bullets",
         items: [
-          "✅ Match hardware to workload — don't use H100s for batch inference",
+          "<strong>✅ Match to workload</strong> — Don't use H100s for batch inference, right-size your GPUs",
           "<strong>✅ CUDA fallback</strong> — Keep CUDA as a fallback even if you adopt alternatives — ecosystem is unmatched",
-          "✅ Use spot/preemptible instances for training — 70% cost savings",
+          "<strong>✅ Spot instances</strong> — Use spot/preemptible instances for training, 70% cost savings",
           "<strong>❌ Expensive is not best</strong> — Don't assume the most expensive GPU is the best for your use case",
           "<strong>❌ Avoid single vendor</strong> — Don't design around one vendor exclusively — hardware diversity reduces supply chain risk",
           "<strong>❌ Power costs matter</strong> — Don't ignore power consumption — it's often 30-40% of total operational cost"
@@ -1053,8 +1053,8 @@ window.DEEP_DIVES[107] = {
         items: [
           "<strong>Silent pipeline breaks</strong> — Data pipelines break silently from schema changes and upstream data quality drift",
           "<strong>Performance degradation</strong> — Model performance degrades over time (data drift, concept drift)",
-          "No versioning — 'which model is in production?' becomes a mystery",
-          "Retraining is manual, error-prone, and takes weeks",
+          "<strong>No versioning</strong> — 'Which model is in production?' becomes a mystery",
+          "<strong>Manual retraining</strong> — Retraining is manual, error-prone, and takes weeks",
           "<strong>Silent model failure</strong> — No monitoring means model fails silently, returning garbage predictions with high confidence"
         ]
       }
@@ -1123,7 +1123,7 @@ window.DEEP_DIVES[107] = {
       {
         kind: "bullets",
         items: [
-          "✅ Version everything: data, code, model, config, environment",
+          "<strong>✅ Version everything</strong> — Data, code, model, config, and environment must all be versioned",
           "<strong>✅ CI/CD for training</strong> — Treat model training as a CI/CD pipeline, not a notebook session",
           "<strong>✅ Monitor predictions</strong> — Monitor model predictions in production — accuracy can degrade without code changes",
           "<strong>✅ Data quality checks</strong> — Automate data quality checks before every training run",
@@ -1160,7 +1160,7 @@ window.DEEP_DIVES[107] = {
         kind: "bullets",
         items: [
           "<strong>Experiments to products</strong> — MLOps turns ML experiments into ML products — without it, 85% of models never reach production",
-          "Version everything: data, code, model, config, environment",
+          "<strong>Version everything</strong> — Data, code, model, config, and environment",
           "<strong>Monitor in production</strong> — Models degrade without any code changes",
           "<strong>Start simple</strong> — Experiment tracking, then data validation, model registry, monitoring, and automated retraining"
         ]
@@ -1281,7 +1281,7 @@ window.DEEP_DIVES[108] = {
         kind: "bullets",
         items: [
           "<strong>✅ Constraint-first design</strong> — Design models for the target hardware — start with the constraint, not the model",
-          "✅ Use NPU when available — 10x more efficient than CPU inference",
+          "<strong>✅ Use NPU</strong> — Use NPU when available, 10x more efficient than CPU inference",
           "<strong>✅ Graceful degradation</strong> — Fallback to simpler model if device is under thermal pressure",
           "<strong>✅ Real device testing</strong> — Test on real devices, not simulators — thermal throttling doesn't exist in simulators",
           "<strong>❌ Budget memory carefully</strong> — Don't assume unlimited memory — budget for model + runtime + buffers",
@@ -1316,10 +1316,10 @@ window.DEEP_DIVES[108] = {
       {
         kind: "bullets",
         items: [
-          "Edge AI eliminates latency, preserves privacy, and works offline",
-          "Design models for the target hardware — don't shrink cloud models to fit",
-          "NPUs are 10-100x more efficient than CPUs for inference — use them",
-          "Hybrid inference (edge + cloud fallback) gives you the best of both worlds"
+          "<strong>Core advantages</strong> — Edge AI eliminates latency, preserves privacy, and works offline",
+          "<strong>Target-first design</strong> — Design models for the target hardware, don't shrink cloud models to fit",
+          "<strong>NPU advantage</strong> — NPUs are 10-100x more efficient than CPUs for inference, use them",
+          "<strong>Hybrid inference</strong> — Edge plus cloud fallback gives you the best of both worlds"
         ]
       },
       {
@@ -1373,8 +1373,8 @@ window.DEEP_DIVES[109] = {
         items: [
           "<strong>Overspending on easy queries</strong> — Easy queries (40-60% of traffic) are routed to a $0.03/1K token model when $0.001 would suffice",
           "<strong>No universal model</strong> — Single model can't be best at code, math, creative writing, and analysis simultaneously",
-          "Latency is fixed — simple queries are as slow as complex ones",
-          "A single model failure takes down the entire AI pipeline"
+          "<strong>Fixed latency</strong> — Simple queries are as slow as complex ones with a single model",
+          "<strong>Single point of failure</strong> — One model failure takes down the entire AI pipeline"
         ]
       }
     ] },
@@ -1424,12 +1424,12 @@ window.DEEP_DIVES[109] = {
       {
         kind: "bullets",
         items: [
-          "Step 1: Analyze your query distribution — what % are easy vs. hard?",
+          "<strong>Analyze queries</strong> — Analyze your query distribution to determine what percent are easy vs. hard",
           "<strong>Build a cascade</strong> — Route easy queries to a small model, hard queries to a large model",
           "<strong>Define thresholds</strong> — Define confidence thresholds using a validation set — not vibes",
           "<strong>Add monitoring</strong> — Track cascade hit rates, per-model latency, and quality by tier",
-          "Step 5: Optimize thresholds iteratively — you're trading quality for cost/speed",
-          "Step 6: Consider a model router if you have 3+ specialized domains"
+          "<strong>Optimize thresholds</strong> — Iterate on thresholds, trading quality for cost and speed",
+          "<strong>Consider router</strong> — Add a model router if you have 3+ specialized domains"
         ]
       }
     ] },
@@ -1462,10 +1462,10 @@ window.DEEP_DIVES[109] = {
       {
         kind: "bullets",
         items: [
-          "Analyze your last 1000 AI queries — what % could a small model handle?",
-          "Build a 2-tier cascade with confidence-based routing",
-          "Measure cost savings and quality impact on your eval set",
-          "Set up monitoring: cascade hit rate, per-tier latency, per-tier quality"
+          "<strong>Audit query mix</strong> — Analyze your last 1000 AI queries to see what a small model could handle",
+          "<strong>Build cascade</strong> — Set up a 2-tier cascade with confidence-based routing",
+          "<strong>Measure savings</strong> — Evaluate cost savings and quality impact on your eval set",
+          "<strong>Monitor tiers</strong> — Track cascade hit rate, per-tier latency, and per-tier quality"
         ]
       }
     ] },
@@ -1529,7 +1529,7 @@ window.DEEP_DIVES[110] = {
         kind: "bullets",
         items: [
           "<strong>Per-user compute cost</strong> — LLM inference: $0.01-0.10 per conversation — at 1M daily users, that's $10K-100K/day",
-          "Teams request 'the biggest GPU' without profiling their actual needs",
+          "<strong>Over-provisioning</strong> — Teams request 'the biggest GPU' without profiling their actual needs",
           "<strong>Idle dev GPUs</strong> — Development environments use production-grade GPUs 24/7 but only train 2 hours/day",
           "<strong>Missed spot savings</strong> — Spot instance savings left on the table because training isn't checkpoint-resilient"
         ]
@@ -1565,11 +1565,11 @@ window.DEEP_DIVES[110] = {
       {
         kind: "bullets",
         items: [
-          "Right-sized: moved inference from A100 to T4 GPUs — 5x cost reduction, latency stayed under SLA",
-          "Spot instances: all training jobs use spot with checkpoint-and-resume — 70% savings",
-          "Model optimization: quantized recommendation models to INT8 — 2x throughput, same quality",
-          "Scheduling: consolidated batch jobs to run overnight on fewer GPUs at lower rates",
-          "Show-back: gave each team visibility into their GPU costs — behavioral change reduced waste 20%"
+          "<strong>Right-sizing</strong> — Moved inference from A100 to T4 GPUs for 5x cost reduction, latency stayed under SLA",
+          "<strong>Spot instances</strong> — All training jobs use spot with checkpoint-and-resume for 70% savings",
+          "<strong>Quantization</strong> — Quantized recommendation models to INT8 for 2x throughput, same quality",
+          "<strong>Scheduling</strong> — Consolidated batch jobs to run overnight on fewer GPUs at lower rates",
+          "<strong>Show-back reports</strong> — Gave each team visibility into their GPU costs, behavioral change reduced waste 20%"
         ]
       },
       {
@@ -1597,13 +1597,13 @@ window.DEEP_DIVES[110] = {
       {
         kind: "bullets",
         items: [
-          "✅ Set hard budget alerts at 80% of monthly target",
-          "✅ Use reserved instances for steady-state baseline, spot for burst",
-          "✅ Auto-shutdown idle GPU instances after 30 minutes",
-          "✅ Show-back costs to each team — visibility drives accountability",
+          "<strong>✅ Budget alerts</strong> — Set hard budget alerts at 80% of monthly target",
+          "<strong>✅ Reserved plus spot</strong> — Use reserved instances for steady-state baseline, spot for burst",
+          "<strong>✅ Auto-shutdown</strong> — Shut down idle GPU instances after 30 minutes automatically",
+          "<strong>✅ Show-back costs</strong> — Show-back costs to each team, visibility drives accountability",
           "<strong>❌ Limit GPU selection</strong> — Don't let data scientists choose GPU types — they'll always pick the biggest",
           "<strong>❌ Use spot for training</strong> — Don't run training on on-demand instances — spot savings are too large to ignore",
-          "❌ Don't skip model optimization because 'GPUs are a business expense'"
+          "<strong>❌ Optimize models</strong> — Don't skip model optimization because 'GPUs are a business expense'"
         ]
       }
     ] },
@@ -1622,10 +1622,10 @@ window.DEEP_DIVES[110] = {
       {
         kind: "bullets",
         items: [
-          "Run nvidia-smi on every GPU node and calculate average utilization",
-          "Identify your top 5 most expensive GPU workloads by monthly spend",
-          "Set up auto-shutdown for dev GPU instances outside 9am-7pm",
-          "Try one model on a smaller GPU and measure if latency stays within SLA"
+          "<strong>Measure utilization</strong> — Run nvidia-smi on every GPU node and calculate average utilization",
+          "<strong>Find top costs</strong> — Identify your top 5 most expensive GPU workloads by monthly spend",
+          "<strong>Schedule shutdowns</strong> — Set up auto-shutdown for dev GPU instances outside 9am-7pm",
+          "<strong>Test smaller GPU</strong> — Try one model on a smaller GPU and measure if latency stays within SLA"
         ]
       }
     ] },
@@ -1665,7 +1665,7 @@ window.DEEP_DIVES[111] = {
     ] },
     { type: "problem", typeLabel: "The Problem", title: "AI Unit Economics Fail Without Optimization", content: [
       { kind: "text", value: "Most AI startups <strong>lose money on every API call</strong> and try to make it up on volume." },
-      { kind: "bullets", items: ["Inference: $0.01-0.10 per LLM query. At 1M/day = $300K/month", "GPU prices not falling as fast as demand grows", "Cloud providers charge 3-5x hardware cost", "Fine-tuning recurs as data drifts"] }
+      { kind: "bullets", items: ["<strong>Inference costs</strong> — $0.01-0.10 per LLM query, at 1M/day that is $300K/month", "<strong>GPU price pressure</strong> — GPU prices not falling as fast as demand grows", "<strong>Cloud markup</strong> — Cloud providers charge 3-5x hardware cost", "<strong>Recurring fine-tuning</strong> — Fine-tuning recurs as data drifts"] }
     ] },
     { type: "concepts", typeLabel: "Core Concepts", title: "AI Cost Model", content: [
       { kind: "bullets", items: ["<strong>Training</strong> — One-time per version. LLaMA 3 70B: ~$2M. GPT-4: ~$100M.", "<strong>Inference</strong> — Ongoing. Cost/token x volume. Dominates at scale.", "<strong>Fine-Tuning</strong> — Recurring. 10-100x cheaper than pre-training.", "<strong>Data Pipeline</strong> — Hidden. Storage, ETL, labeling.", "<strong>Opportunity</strong> — GPU time on low-value work blocks high-value work."] },
@@ -1676,15 +1676,15 @@ window.DEEP_DIVES[111] = {
     ] },
     { type: "example", typeLabel: "Real-World Example", title: "Notion Cut AI Costs 80%", content: [
       { kind: "text", value: "Notion rebuilt with a <strong>multi-model strategy</strong>:" },
-      { kind: "bullets", items: ["Classified queries: 60% simple, 30% moderate, 10% complex", "Simple: fine-tuned Llama on A10G — $0.001/query", "Moderate: GPT-4o-mini — $0.003/query", "Complex: GPT-4o — $0.03/query", "Blended cost: $0.03 to $0.006 per query — 80% reduction"] },
+      { kind: "bullets", items: ["<strong>Query classification</strong> — 60% simple, 30% moderate, 10% complex", "<strong>Simple tier</strong> — Fine-tuned Llama on A10G at $0.001/query", "<strong>Moderate tier</strong> — GPT-4o-mini at $0.003/query", "<strong>Complex tier</strong> — GPT-4o at $0.03/query", "<strong>Blended savings</strong> — Blended cost dropped from $0.03 to $0.006 per query, 80% reduction"] },
       { kind: "sources", items: ["Notion Engineering Blog, 'Building Notion AI', 2023"] }
     ] },
     { type: "guide", typeLabel: "Step-by-Step Guide", title: "Optimize AI Economics", content: [
-      { kind: "bullets", items: ["Step 1: Calculate cost per query and monthly burn", "Step 2: Profile query distribution — easy vs hard", "Step 3: Evaluate self-hosting breakeven (~100K+ queries/day)", "Step 4: Implement model cascading", "Step 5: Optimize prompts — shorter = cheaper", "Step 6: Cache repeated queries with semantic similarity"] },
+      { kind: "bullets", items: ["<strong>Calculate costs</strong> — Determine cost per query and monthly burn", "<strong>Profile queries</strong> — Profile query distribution to separate easy vs hard", "<strong>Evaluate self-hosting</strong> — Check self-hosting breakeven at ~100K+ queries/day", "<strong>Model cascading</strong> — Implement model cascading for cost reduction", "<strong>Shorten prompts</strong> — Optimize prompts because shorter means cheaper", "<strong>Cache queries</strong> — Cache repeated queries with semantic similarity"] },
       { kind: "callout", style: "action", value: "Cut system prompt from 2000 to 500 tokens = 75% input cost savings." }
     ] },
     { type: "practices", typeLabel: "Best Practices", title: "Cost Management", content: [
-      { kind: "bullets", items: ["✅ Track cost per query alongside latency and quality", "✅ Cache responses with semantic similarity", "✅ Use smaller models for classification and routing", "❌ Do not use GPT-4 for tasks a fine-tuned 8B handles", "❌ Do not ignore prompt length as cost multiplier", "❌ Do not self-host without full TCO calculation"] }
+      { kind: "bullets", items: ["<strong>✅ Track cost per query</strong> — Track cost per query alongside latency and quality", "<strong>✅ Semantic caching</strong> — Cache responses with semantic similarity", "<strong>✅ Smaller routers</strong> — Use smaller models for classification and routing", "<strong>❌ Right-size models</strong> — Do not use GPT-4 for tasks a fine-tuned 8B handles", "<strong>❌ Prompt length costs</strong> — Do not ignore prompt length as cost multiplier", "<strong>❌ Calculate TCO</strong> — Do not self-host without full TCO calculation"] }
     ] },
     { type: "pitfalls", typeLabel: "Common Pitfalls", title: "Economics Anti-Patterns", content: [
       { kind: "bullets", items: ["<strong>API Addiction</strong> — Using API when self-hosting is 10x cheaper at scale.", "<strong>Premature Self-Host</strong> — Building infra for 1000 queries/day ($3/month on API).", "<strong>Hidden Prompt Tax</strong> — 3000-token system prompts that 99% of queries skip.", "<strong>Feature Factory</strong> — Adding AI features without measuring cost or value."] }
@@ -1693,7 +1693,7 @@ window.DEEP_DIVES[111] = {
       { kind: "bullets", items: ["Calculate monthly AI cost (API + self-hosted)", "Measure cost per query per feature", "Identify top 3 expensive features, evaluate alternatives", "Implement rate limiting to prevent cost surprises"] }
     ] },
     { type: "summary", typeLabel: "Key Takeaways", title: "Remember This", content: [
-      { kind: "bullets", items: ["Inference dominates AI cost — 10x training annually", "Cascading and right-sizing cut costs 50-80%", "Self-hosting breaks even at ~100K queries/day", "Track cost per query as a first-class metric"] },
+      { kind: "bullets", items: ["<strong>Inference dominates</strong> — Inference dominates AI cost, 10x training annually", "<strong>Cascading wins</strong> — Cascading and right-sizing cut costs 50-80%", "<strong>Self-host breakeven</strong> — Self-hosting breaks even at ~100K queries/day", "<strong>Cost as metric</strong> — Track cost per query as a first-class metric"] },
       { kind: "quality", items: [{ label: "Actionability", score: 5 }, { label: "Correctness", score: 5 }, { label: "Visual Appeal", score: 4 }, { label: "Engagement", score: 5 }] }
     ] }
   ]
@@ -1708,7 +1708,7 @@ window.DEEP_DIVES[112] = { title: "The Build vs Buy Decision for AI", icon: "⚖
     ] },
     { type: "problem", typeLabel: "The Problem", title: "Both Extremes Are Wrong", content: [
       { kind: "text", value: "Teams <strong>over-build</strong> or <strong>over-buy</strong>. Both waste resources." },
-      { kind: "bullets", items: ["Over-build: 6mo + $500K for 2% improvement over fine-tuned Llama", "Over-buy: $50K/month on API when $3K self-hosted suffices", "Vendor lock-in on proprietary features", "Self-hosting before product-market fit"] }
+      { kind: "bullets", items: ["<strong>Over-build</strong> — 6 months plus $500K for 2% improvement over fine-tuned Llama", "<strong>Over-buy</strong> — $50K/month on API when $3K self-hosted suffices", "<strong>Vendor lock-in</strong> — Dependency on proprietary features traps you", "<strong>Premature hosting</strong> — Self-hosting before product-market fit wastes resources"] }
     ] },
     { type: "concepts", typeLabel: "Core Concepts", title: "The Spectrum", content: [
       { kind: "bullets", items: ["<strong>L0: Raw API</strong> — Fastest to ship, most expensive at scale.", "<strong>L1: Prompt + RAG</strong> — API with your data context.", "<strong>L2: Fine-Tuned API</strong> — Better quality, lower cost, vendor-dependent.", "<strong>L3: Self-Hosted OSS</strong> — Full control, fixed cost, ops burden.", "<strong>L4: Custom Pre-Training</strong> — Maximum everything. Only for unique domains."] },
@@ -2070,7 +2070,7 @@ window.DEEP_DIVES[121] = { title: "Real-Time Feature Computation", icon: "⚡", 
     ] },
     { type: "problem", typeLabel: "The Problem", title: "Batch Features Are Stale by Definition", content: [
       { kind: "text", value: "Computing features hourly or daily means your model sees a <strong>stale snapshot of reality</strong>." },
-      { kind: "bullets", items: ["<strong>Invisible activity</strong> — User's last 5 minutes of activity is invisible to hourly batch", "Fraud patterns change within minutes, not hours", "<strong>Stale recommendations</strong> — Recommendation relevance decays with stale features", "<strong>Session features</strong> — Session-level features (clicks in last 30s) require streaming"] }
+      { kind: "bullets", items: ["<strong>Invisible activity</strong> — User's last 5 minutes of activity is invisible to hourly batch", "<strong>Fast fraud shifts</strong> — Fraud patterns change within minutes, not hours", "<strong>Stale recommendations</strong> — Recommendation relevance decays with stale features", "<strong>Session features</strong> — Session-level features (clicks in last 30s) require streaming"] }
     ] },
     { type: "concepts", typeLabel: "Core Concepts", title: "Real-Time Feature Architecture", content: [
       { kind: "bullets", items: ["<strong>Stream Processing</strong> — Kafka/Flink compute features from event streams in real-time.", "<strong>Windowed Aggregations</strong> — Count/sum/avg over sliding time windows (last 5 min, last 1 hr).", "<strong>Online-Offline Consistency</strong> — Same feature definition runs in batch (training) and streaming (serving).", "<strong>Feature Freshness SLA</strong> — How stale can a feature be? Fraud: seconds. Recommendations: minutes.", "<strong>Backfill</strong> — Replay historical events to compute real-time features for training data."] },
@@ -2088,16 +2088,16 @@ window.DEEP_DIVES[121] = { title: "Real-Time Feature Computation", icon: "⚡", 
       { kind: "bullets", items: ["<strong>Identify fresh features</strong> — Identify which features benefit most from freshness", "<strong>Set up Kafka</strong> — Set up Kafka for event streaming", "<strong>Build aggregations</strong> — Build streaming aggregations with Flink or Spark Structured Streaming", "<strong>Push to online store</strong> — Push results to Redis/DynamoDB for online serving", "<strong>Implement backfill</strong> — Generate training data from historical events", "<strong>Monitor freshness</strong> — Monitor feature latency and freshness SLAs"] }
     ] },
     { type: "practices", typeLabel: "Best Practices", title: "Principles", content: [
-      { kind: "bullets", items: ["<strong>✅ Same definition</strong> — Same feature definition for batch and streaming", "✅ Define freshness SLAs per feature", "✅ Monitor feature computation latency", "<strong>❌ Not everything real-time</strong> — Do not make all features real-time — most do not need it", "<strong>❌ Backfill is essential</strong> — Do not skip backfill — you need historical values for training", "<strong>❌ Handle late events</strong> — Do not ignore late-arriving events — handle out-of-order data"] }
+      { kind: "bullets", items: ["<strong>✅ Same definition</strong> — Same feature definition for batch and streaming", "<strong>✅ Freshness SLAs</strong> — Define freshness SLAs per feature", "<strong>✅ Monitor latency</strong> — Monitor feature computation latency", "<strong>❌ Not everything real-time</strong> — Do not make all features real-time — most do not need it", "<strong>❌ Backfill is essential</strong> — Do not skip backfill — you need historical values for training", "<strong>❌ Handle late events</strong> — Do not ignore late-arriving events — handle out-of-order data"] }
     ] },
     { type: "pitfalls", typeLabel: "Common Pitfalls", title: "Anti-Patterns", content: [
       { kind: "bullets", items: ["<strong>Everything Real-Time</strong> — 90% of features work fine as batch. Only make time-sensitive ones real-time.", "<strong>No Backfill</strong> — Cannot train on real-time features without historical computation.", "<strong>Clock Skew</strong> — Events from different systems with different clocks break windowed aggregations.", "<strong>State Explosion</strong> — Keeping per-user state for millions of users in streaming jobs."] }
     ] },
     { type: "action", typeLabel: "Your Action Plan", title: "Quick Start", content: [
-      { kind: "bullets", items: ["Identify your 3 most time-sensitive features", "Set up a Kafka topic for the relevant events", "Build one streaming aggregation", "Benchmark: how much does model quality improve with fresh features?"] }
+      { kind: "bullets", items: ["<strong>Find sensitive features</strong> — Identify your 3 most time-sensitive features", "<strong>Set up Kafka</strong> — Set up a Kafka topic for the relevant events", "<strong>Build aggregation</strong> — Build one streaming aggregation", "<strong>Benchmark freshness</strong> — How much does model quality improve with fresh features?"] }
     ] },
     { type: "summary", typeLabel: "Key Takeaways", title: "Remember This", content: [
-      { kind: "bullets", items: ["<strong>Critical for fraud and recs</strong> — Real-time features are critical for fraud, recommendations, and session-based ML", "<strong>Prevent skew</strong> — Same definition for batch and streaming prevents skew", "Not everything needs to be real-time — choose wisely", "<strong>Backfill required</strong> — Backfill is essential for training on real-time features"] },
+      { kind: "bullets", items: ["<strong>Critical for fraud and recs</strong> — Real-time features are critical for fraud, recommendations, and session-based ML", "<strong>Prevent skew</strong> — Same definition for batch and streaming prevents skew", "<strong>Choose wisely</strong> — Not everything needs to be real-time, select carefully", "<strong>Backfill required</strong> — Backfill is essential for training on real-time features"] },
       { kind: "quality", items: [{ label: "Actionability", score: 5 }, { label: "Correctness", score: 5 }, { label: "Visual Appeal", score: 4 }, { label: "Engagement", score: 5 }] }
     ] }
   ] };
@@ -2110,7 +2110,7 @@ window.DEEP_DIVES[122] = { title: "Observability > Debugging", icon: "🔭", tag
     ] },
     { type: "problem", typeLabel: "The Problem", title: "Logs Alone Are Not Enough", content: [
       { kind: "text", value: "Most teams rely on <strong>grep through log files</strong> to debug production issues. This fails at scale." },
-      { kind: "bullets", items: ["Logs tell you what happened, not why", "Metrics tell you something is wrong, not where", "<strong>Traces show the journey</strong> — Traces show the full journey of a request across services", "You need all three — they complement each other"] }
+      { kind: "bullets", items: ["<strong>Logs limitation</strong> — Logs tell you what happened, not why", "<strong>Metrics limitation</strong> — Metrics tell you something is wrong, not where", "<strong>Traces show the journey</strong> — Traces show the full journey of a request across services", "<strong>All three needed</strong> — You need all three because they complement each other"] }
     ] },
     { type: "concepts", typeLabel: "Core Concepts", title: "The Three Pillars", content: [
       { kind: "bullets", items: ["<strong>Logs</strong> — Structured events. What happened. grep-able but high volume.", "<strong>Metrics</strong> — Aggregated numbers over time. Dashboards, alerts. Cheap to store.", "<strong>Traces</strong> — Request journey across services. Shows latency per hop. Critical for microservices.", "<strong>Correlation</strong> — Link all three with a request ID. Jump from alert to trace to log.", "<strong>SLIs/SLOs</strong> — Measure what matters to users, not what is easy to measure."] },
@@ -2128,16 +2128,16 @@ window.DEEP_DIVES[122] = { title: "Observability > Debugging", icon: "🔭", tag
       { kind: "bullets", items: ["<strong>Structured logging</strong> — Add structured logging (JSON) with request IDs", "<strong>Auto-instrument</strong> — Instrument with OpenTelemetry for auto-tracing", "<strong>Metrics dashboards</strong> — Set up Prometheus/Grafana for metrics and dashboards", "<strong>Define SLIs/SLOs</strong> — Define SLIs and SLOs for your top 5 user-facing APIs", "<strong>SLO-based alerts</strong> — Create alerts on SLO violations, not raw metrics", "<strong>Build runbooks</strong> — Build runbooks linking alerts to investigation steps"] }
     ] },
     { type: "practices", typeLabel: "Best Practices", title: "Principles", content: [
-      { kind: "bullets", items: ["<strong>✅ Correlate with request ID</strong> — Correlate logs, metrics, traces with a single request ID", "<strong>✅ Alert on SLOs</strong> — Alert on SLO violations, not arbitrary thresholds", "✅ Use structured logs (JSON), not free-text", "<strong>❌ Avoid alert fatigue</strong> — Do not alert on everything — alert fatigue kills response", "<strong>❌ Traces are essential</strong> — Do not skip traces in microservices — you will regret it", "<strong>❌ Retention policy</strong> — Do not store raw logs forever — retention policy saves money"] }
+      { kind: "bullets", items: ["<strong>✅ Correlate with request ID</strong> — Correlate logs, metrics, traces with a single request ID", "<strong>✅ Alert on SLOs</strong> — Alert on SLO violations, not arbitrary thresholds", "<strong>✅ Structured logs</strong> — Use structured logs in JSON format, not free-text", "<strong>❌ Avoid alert fatigue</strong> — Do not alert on everything — alert fatigue kills response", "<strong>❌ Traces are essential</strong> — Do not skip traces in microservices — you will regret it", "<strong>❌ Retention policy</strong> — Do not store raw logs forever — retention policy saves money"] }
     ] },
     { type: "pitfalls", typeLabel: "Common Pitfalls", title: "Anti-Patterns", content: [
       { kind: "bullets", items: ["<strong>Alert Fatigue</strong> — 500 alerts/day, all ignored. Alert on SLOs, not metrics.", "<strong>Log Soup</strong> — Unstructured text logs. Impossible to query at scale.", "<strong>Dashboard Cemetery</strong> — 50 dashboards, nobody looks at them.", "<strong>Trace Sampling Regret</strong> — Sampling 1% of traces. The bug is in the 99% you dropped."] }
     ] },
     { type: "action", typeLabel: "Your Action Plan", title: "Quick Start", content: [
-      { kind: "bullets", items: ["Add OpenTelemetry auto-instrumentation to one service", "Switch to structured JSON logging", "Define one SLO for your most critical API", "Set up one dashboard showing request rate, error rate, latency (RED)"] }
+      { kind: "bullets", items: ["<strong>Add OpenTelemetry</strong> — Add auto-instrumentation to one service", "<strong>Structured logging</strong> — Switch to structured JSON logging", "<strong>Define one SLO</strong> — Define one SLO for your most critical API", "<strong>RED dashboard</strong> — Set up one dashboard showing request rate, error rate, latency"] }
     ] },
     { type: "summary", typeLabel: "Key Takeaways", title: "Remember This", content: [
-      { kind: "bullets", items: ["Three pillars: logs, metrics, traces — you need all three", "Correlate with request IDs across all pillars", "Alert on SLO violations, not raw metric thresholds", "OpenTelemetry is the industry standard — adopt it"] },
+      { kind: "bullets", items: ["<strong>Three pillars</strong> — Logs, metrics, traces, you need all three", "<strong>Correlate everything</strong> — Correlate with request IDs across all pillars", "<strong>SLO-based alerts</strong> — Alert on SLO violations, not raw metric thresholds", "<strong>OpenTelemetry</strong> — It is the industry standard, adopt it"] },
       { kind: "quality", items: [{ label: "Actionability", score: 5 }, { label: "Correctness", score: 5 }, { label: "Visual Appeal", score: 4 }, { label: "Engagement", score: 5 }] }
     ] }
   ] };
@@ -2150,7 +2150,7 @@ window.DEEP_DIVES[123] = { title: "Security Is Not a Feature. It Is a Constraint
     ] },
     { type: "problem", typeLabel: "The Problem", title: "Security as an Afterthought", content: [
       { kind: "text", value: "Teams ship fast, plan to 'add security later.' <strong>Later never comes, or comes after a breach.</strong>" },
-      { kind: "bullets", items: ["No input validation — SQL injection in 2025", "<strong>Secret sprawl</strong> — Secrets in environment variables and git history", "No auth on internal APIs — 'it is behind the VPN'", "Dependencies with known CVEs never updated"] }
+      { kind: "bullets", items: ["<strong>No input validation</strong> — SQL injection still happening in 2025", "<strong>Secret sprawl</strong> — Secrets in environment variables and git history", "<strong>No internal auth</strong> — No auth on internal APIs because 'it is behind the VPN'", "<strong>Stale dependencies</strong> — Dependencies with known CVEs never updated"] }
     ] },
     { type: "concepts", typeLabel: "Core Concepts", title: "Security as Architecture", content: [
       { kind: "bullets", items: ["<strong>Defense in Depth</strong> — Multiple security layers. Each assumes others will fail.", "<strong>Least Privilege</strong> — Every component gets minimum required permissions.", "<strong>Zero Trust</strong> — Verify every request, even from internal services.", "<strong>Shift Left</strong> — Find security issues in CI/CD, not production.", "<strong>Supply Chain Security</strong> — Verify every dependency, container image, and model."] },
@@ -2168,16 +2168,16 @@ window.DEEP_DIVES[123] = { title: "Security Is Not a Feature. It Is a Constraint
       { kind: "bullets", items: ["<strong>Secrets scanning</strong> — Add secrets scanning to pre-commit hooks", "<strong>Dependency scanning</strong> — Enable dependency vulnerability scanning in CI", "<strong>Input validation</strong> — Implement input validation on every API endpoint", "<strong>Rate limiting</strong> — Add rate limiting to public-facing APIs", "<strong>Audit logging</strong> — Set up audit logging for authentication and authorization events", "<strong>Quarterly reviews</strong> — Schedule quarterly security reviews"] }
     ] },
     { type: "practices", typeLabel: "Best Practices", title: "Security Rules", content: [
-      { kind: "bullets", items: ["✅ Validate and sanitize all input — trust nothing", "<strong>✅ Parameterized queries</strong> — Never string concatenation for SQL", "<strong>✅ Rotate secrets</strong> — Use a vault (HashiCorp Vault, AWS Secrets Manager)", "<strong>❌ No secrets in code</strong> — Do not store secrets in code, env vars, or config files", "❌ Do not trust internal network — assume breach", "<strong>❌ Automate dependency updates</strong> — Do not ignore dependency vulnerabilities — automate updates"] }
+      { kind: "bullets", items: ["<strong>✅ Validate all input</strong> — Validate and sanitize all input, trust nothing", "<strong>✅ Parameterized queries</strong> — Never string concatenation for SQL", "<strong>✅ Rotate secrets</strong> — Use a vault (HashiCorp Vault, AWS Secrets Manager)", "<strong>❌ No secrets in code</strong> — Do not store secrets in code, env vars, or config files", "<strong>❌ Assume breach</strong> — Do not trust internal network, always assume breach", "<strong>❌ Automate dependency updates</strong> — Do not ignore dependency vulnerabilities — automate updates"] }
     ] },
     { type: "pitfalls", typeLabel: "Common Pitfalls", title: "Anti-Patterns", content: [
       { kind: "bullets", items: ["<strong>VPN = Security</strong> — Internal APIs unprotected because 'behind the VPN'. VPNs get breached.", "<strong>Security Sprint</strong> — Dedicating one sprint to security, then ignoring it. Security is continuous.", "<strong>Secret Sprawl</strong> — API keys in 47 config files across 12 repos.", "<strong>Vulnerability Backlog</strong> — Known CVEs deprioritized for features. Attackers do not wait."] }
     ] },
     { type: "action", typeLabel: "Your Action Plan", title: "This Week", content: [
-      { kind: "bullets", items: ["Run gitleaks on your repos — you will find secrets", "Add npm audit / pip-audit to your CI pipeline", "Audit one API endpoint for input validation gaps", "Review who has admin access — apply least privilege"] }
+      { kind: "bullets", items: ["<strong>Scan for secrets</strong> — Run gitleaks on your repos, you will find secrets", "<strong>Dependency audit</strong> — Add npm audit or pip-audit to your CI pipeline", "<strong>Input validation</strong> — Audit one API endpoint for input validation gaps", "<strong>Least privilege</strong> — Review who has admin access and apply least privilege"] }
     ] },
     { type: "summary", typeLabel: "Key Takeaways", title: "Remember This", content: [
-      { kind: "bullets", items: ["<strong>Design constraint</strong> — Security is a constraint, not a feature — design for it from day one", "<strong>Defense in depth</strong> — Multiple layers, each assumes others fail", "<strong>Shift left</strong> — Catch issues in CI/CD, not production", "Zero trust: verify every request, even internal ones"] },
+      { kind: "bullets", items: ["<strong>Design constraint</strong> — Security is a constraint, not a feature — design for it from day one", "<strong>Defense in depth</strong> — Multiple layers, each assumes others fail", "<strong>Shift left</strong> — Catch issues in CI/CD, not production", "<strong>Zero trust</strong> — Verify every request, even internal ones"] },
       { kind: "quality", items: [{ label: "Actionability", score: 5 }, { label: "Correctness", score: 5 }, { label: "Visual Appeal", score: 4 }, { label: "Engagement", score: 5 }] }
     ] }
   ] };
@@ -2190,7 +2190,7 @@ window.DEEP_DIVES[124] = { title: "Authentication Patterns: Beyond JWT", icon: "
     ] },
     { type: "problem", typeLabel: "The Problem", title: "JWTs Are Not Always the Answer", content: [
       { kind: "text", value: "Teams default to JWTs without understanding when they are the <strong>wrong choice</strong>." },
-      { kind: "bullets", items: ["<strong>Revocation problem</strong> — Cannot revoke a JWT before expiry without a blacklist (defeating statelessness)", "<strong>Large tokens</strong> — Large tokens increase every request size — bad for mobile", "Storing JWTs in localStorage is an XSS vector", "<strong>Algorithm confusion</strong> — Algorithm confusion attacks (alg=none) if not validated properly"] }
+      { kind: "bullets", items: ["<strong>Revocation problem</strong> — Cannot revoke a JWT before expiry without a blacklist (defeating statelessness)", "<strong>Large tokens</strong> — Large tokens increase every request size — bad for mobile", "<strong>XSS vulnerability</strong> — Storing JWTs in localStorage is an XSS vector", "<strong>Algorithm confusion</strong> — Algorithm confusion attacks (alg=none) if not validated properly"] }
     ] },
     { type: "concepts", typeLabel: "Core Concepts", title: "Auth Token Patterns", content: [
       { kind: "bullets", items: ["<strong>JWT (JSON Web Token)</strong> — Self-contained, stateless, verifiable. Good for microservices. Hard to revoke.", "<strong>Opaque Tokens</strong> — Random string, server-side lookup. Easy to revoke. Requires central auth server.", "<strong>Session Cookies</strong> — Server-side state, HTTP-only cookies. Most secure for web apps. Not for APIs.", "<strong>mTLS (Mutual TLS)</strong> — Certificate-based. Both client and server verify identity. Best for service-to-service.", "<strong>API Keys</strong> — Simple, static credentials. Good for server-to-server. Not for user auth."] },
@@ -2208,13 +2208,13 @@ window.DEEP_DIVES[124] = { title: "Authentication Patterns: Beyond JWT", icon: "
       { kind: "bullets", items: ["<strong>Choose the right pattern</strong> — Choose the right pattern for your context (see decision matrix)", "<strong>Use RS256</strong> — Use RS256 (asymmetric) for JWTs, never HS256 with shared secrets", "<strong>Short expiry</strong> — Set short JWT expiry (15 min) with refresh token rotation", "<strong>Secure storage</strong> — Store tokens in HTTP-only cookies for web, secure storage for mobile", "<strong>Token revocation</strong> — Implement token revocation via JTI blacklist or short expiry", "<strong>Rate limit auth</strong> — Add rate limiting on auth endpoints to prevent brute force"] }
     ] },
     { type: "practices", typeLabel: "Best Practices", title: "Auth Principles", content: [
-      { kind: "bullets", items: ["<strong>✅ Short-lived tokens</strong> — Short-lived tokens (15 min) with refresh rotation", "✅ HTTP-only, Secure, SameSite cookies for web", "✅ RS256 for JWTs — asymmetric verification", "<strong>❌ No localStorage</strong> — Do not store JWTs in localStorage — XSS vulnerability", "<strong>❌ No shared HS256</strong> — Do not use HS256 with a secret shared across services", "<strong>❌ No sensitive claims</strong> — Do not put sensitive data in JWT claims — they are base64, not encrypted"] }
+      { kind: "bullets", items: ["<strong>✅ Short-lived tokens</strong> — Short-lived tokens (15 min) with refresh rotation", "<strong>✅ Secure cookies</strong> — HTTP-only, Secure, SameSite cookies for web", "<strong>✅ RS256 algorithm</strong> — Use RS256 for JWTs with asymmetric verification", "<strong>❌ No localStorage</strong> — Do not store JWTs in localStorage — XSS vulnerability", "<strong>❌ No shared HS256</strong> — Do not use HS256 with a secret shared across services", "<strong>❌ No sensitive claims</strong> — Do not put sensitive data in JWT claims — they are base64, not encrypted"] }
     ] },
     { type: "pitfalls", typeLabel: "Common Pitfalls", title: "Anti-Patterns", content: [
       { kind: "bullets", items: ["<strong>JWT For Everything</strong> — Using JWTs where session cookies would be simpler and more secure.", "<strong>The Mega Token</strong> — Stuffing 2KB of claims into every request. Use a reference token.", "<strong>No Rotation</strong> — Refresh tokens that never expire and are never rotated.", "<strong>Algorithm None</strong> — Not explicitly validating the JWT algorithm. Classic CVE."] }
     ] },
     { type: "action", typeLabel: "Your Action Plan", title: "Auth Audit", content: [
-      { kind: "bullets", items: ["Review your JWT implementation: algorithm, expiry, storage", "Check: are tokens stored in localStorage? Move to HTTP-only cookies", "Verify: explicit algorithm validation in token verification", "Add refresh token rotation if not already implemented"] }
+      { kind: "bullets", items: ["<strong>Review JWT setup</strong> — Check your JWT implementation: algorithm, expiry, storage", "<strong>Fix token storage</strong> — If tokens are in localStorage, move to HTTP-only cookies", "<strong>Validate algorithm</strong> — Verify explicit algorithm validation in token verification", "<strong>Add rotation</strong> — Add refresh token rotation if not already implemented"] }
     ] },
     { type: "summary", typeLabel: "Key Takeaways", title: "Remember This", content: [
       { kind: "bullets", items: ["<strong>JWTs are not universal</strong> — Session cookies, opaque tokens, and mTLS each have strengths", "<strong>Secure JWT pattern</strong> — Short expiry + refresh rotation is the secure JWT pattern", "<strong>Never localStorage</strong> — Never store tokens in localStorage — use HTTP-only cookies", "<strong>Match pattern to context</strong> — Match auth pattern to context: web, mobile, API, service-to-service"] },
@@ -2268,7 +2268,7 @@ window.DEEP_DIVES[126] = { title: "On-Device AI: System Design for Wearables", i
     ] },
     { type: "problem", typeLabel: "The Problem", title: "Cloud AI Is Too Slow, Too Expensive, and Too Dependent", content: [
       { kind: "text", value: "Sending every sensor reading to the cloud and waiting for a response <strong>breaks the wearable experience</strong>." },
-      { kind: "bullets", items: ["Round-trip latency: 200-500ms for cloud, <10ms on-device — AR overlays need the latter", "Connectivity: glasses lose signal in buildings, subways, and rural areas", "Battery: radio is the biggest power drain — constant cloud calls kill battery in 2 hours", "Privacy: users do not want continuous camera/mic streaming to the cloud", "Cost: 1M users x continuous inference = unsustainable cloud GPU bill"] }
+      { kind: "bullets", items: ["<strong>Latency gap</strong> — Round-trip latency is 200-500ms for cloud vs &lt;10ms on-device, AR overlays need the latter", "<strong>Connectivity gaps</strong> — Glasses lose signal in buildings, subways, and rural areas", "<strong>Battery drain</strong> — Radio is the biggest power drain, constant cloud calls kill battery in 2 hours", "<strong>Privacy concerns</strong> — Users do not want continuous camera/mic streaming to the cloud", "<strong>Cost at scale</strong> — 1M users times continuous inference equals unsustainable cloud GPU bill"] }
     ] },
     { type: "concepts", typeLabel: "Core Concepts", title: "Wearable AI Architecture Layers", content: [
       { kind: "bullets", items: ["<strong>Sensor Fusion Layer</strong> — Combine camera, IMU, mic, GPS, heart rate into unified context. Runs on DSP, not main CPU.", "<strong>Always-On Detection</strong> — Ultra-low-power wake-word and gesture detection. Runs on dedicated co-processor at <1mW.", "<strong>On-Device Inference</strong> — Quantized models (INT4/INT8) on NPU. 10-50ms latency. No network needed.", "<strong>Hybrid Offload</strong> — Complex queries sent to phone (BLE) or cloud (WiFi). Intelligent routing based on query complexity.", "<strong>Context Pipeline</strong> — Continuous scene understanding that persists across interactions. What did user see 30 seconds ago?"] },
@@ -2279,24 +2279,24 @@ window.DEEP_DIVES[126] = { title: "On-Device AI: System Design for Wearables", i
     ] },
     { type: "example", typeLabel: "Real-World Example", title: "Ray-Ban Meta Smart Glasses Architecture", content: [
       { kind: "text", value: "The Ray-Ban Meta smart glasses pack <strong>multimodal AI into a form factor that looks like regular sunglasses</strong>:" },
-      { kind: "bullets", items: ["Qualcomm AR1 Gen 1 SoC: custom silicon with dedicated AI accelerator", "Wake word ('Hey Meta') runs on ultra-low-power DSP — always listening at < 1mW", "Camera AI: scene understanding, object recognition, text reading — all on-device", "Complex queries (describe this scene, translate this sign) offloaded to phone then cloud", "Meta AI integration: Llama-based assistant runs on Meta servers, response streamed back", "Battery: 4 hours of mixed use — thermal envelope is the real constraint, not just capacity"] },
+      { kind: "bullets", items: ["<strong>Custom SoC</strong> — Qualcomm AR1 Gen 1 with dedicated AI accelerator", "<strong>Always-on wake word</strong> — 'Hey Meta' runs on ultra-low-power DSP, always listening at &lt; 1mW", "<strong>On-device vision</strong> — Scene understanding, object recognition, text reading all run on-device", "<strong>Cloud offload</strong> — Complex queries like scene description and translation offloaded to phone then cloud", "<strong>LLM integration</strong> — Llama-based assistant runs on Meta servers, response streamed back", "<strong>Thermal constraint</strong> — 4 hours of mixed use, thermal envelope is the real constraint not just capacity"] },
       { kind: "sources", items: ["Meta, 'Ray-Ban Meta Smart Glasses Technical Overview', 2023", "Qualcomm, 'AR1 Gen 1 for Smart Glasses', 2023"] }
     ] },
     { type: "guide", typeLabel: "Step-by-Step Guide", title: "Design AI for a Wearable Device", content: [
-      { kind: "bullets", items: ["Step 1: Define your power budget — how many milliwatts can AI consume continuously?", "Step 2: Identify always-on vs. on-demand features — always-on must be < 1mW", "Step 3: Design the model hierarchy — tiny detector triggers larger models", "Step 4: Choose your NPU target — Qualcomm Hexagon, Apple ANE, or MediaTek APU", "Step 5: Quantize aggressively — INT4 for classification, INT8 for generative", "Step 6: Build the hybrid offload pipeline — local for simple, phone/cloud for complex"] },
+      { kind: "bullets", items: ["<strong>Define power budget</strong> — How many milliwatts can AI consume continuously?", "<strong>Classify features</strong> — Identify always-on vs on-demand features, always-on must be &lt; 1mW", "<strong>Model hierarchy</strong> — Design so tiny detector triggers larger models", "<strong>Choose NPU target</strong> — Qualcomm Hexagon, Apple ANE, or MediaTek APU", "<strong>Quantize aggressively</strong> — INT4 for classification, INT8 for generative", "<strong>Hybrid offload</strong> — Build the pipeline with local for simple, phone/cloud for complex"] },
       { kind: "callout", style: "action", value: "Start with the thermal budget, not the model. If your chip hits 45C, the OS will throttle everything. Design for sustained, not peak, performance." }
     ] },
     { type: "practices", typeLabel: "Best Practices", title: "Wearable AI Design Rules", content: [
-      { kind: "bullets", items: ["✅ Power budget first, model second — the battery defines what is possible", "✅ Use dedicated co-processors for always-on tasks (DSP, not CPU)", "✅ Test on real hardware under thermal load — simulators lie", "✅ Design for graceful degradation — reduce model quality before draining battery", "❌ Do not run inference on the main CPU — it drains battery 10x faster than NPU", "❌ Do not assume WiFi — design for fully offline operation", "❌ Do not ignore thermal throttling — sustained performance is 30-50% of peak"] }
+      { kind: "bullets", items: ["<strong>✅ Power budget first</strong> — The battery defines what is possible, model second", "<strong>✅ Co-processors</strong> — Use dedicated co-processors for always-on tasks, DSP not CPU", "<strong>✅ Real hardware testing</strong> — Test on real hardware under thermal load because simulators lie", "<strong>✅ Graceful degradation</strong> — Reduce model quality before draining battery", "<strong>❌ Avoid main CPU</strong> — Do not run inference on the main CPU, it drains battery 10x faster than NPU", "<strong>❌ Offline-first design</strong> — Do not assume WiFi, design for fully offline operation", "<strong>❌ Thermal throttling</strong> — Do not ignore it, sustained performance is 30-50% of peak"] }
     ] },
     { type: "pitfalls", typeLabel: "Common Pitfalls", title: "Wearable AI Anti-Patterns", content: [
       { kind: "bullets", items: ["<strong>The Desktop Port</strong> — Taking a cloud model and 'making it smaller.' Design for the constraint from scratch.", "<strong>The Always-On Drain</strong> — Running full inference continuously. Use hierarchical wake: tiny model triggers bigger model.", "<strong>The Thermal Surprise</strong> — Model runs great for 30 seconds, then device throttles to 10% performance.", "<strong>The Cloud Crutch</strong> — Every feature requires connectivity. Users in subways get zero functionality."] }
     ] },
     { type: "action", typeLabel: "Your Action Plan", title: "Wearable AI Exploration", content: [
-      { kind: "bullets", items: ["Profile a model on mobile NPU — measure latency, power, and thermal impact", "Build a wake-word detector under 100KB using TFLite Micro", "Implement a 2-tier inference pipeline: tiny classifier triggers larger model", "Benchmark on-device vs cloud latency for your use case on a real phone"] }
+      { kind: "bullets", items: ["<strong>Profile on NPU</strong> — Measure latency, power, and thermal impact on mobile NPU", "<strong>Build wake-word model</strong> — Build a wake-word detector under 100KB using TFLite Micro", "<strong>2-tier pipeline</strong> — Implement tiny classifier that triggers larger model", "<strong>Benchmark on-device</strong> — Compare on-device vs cloud latency for your use case on a real phone"] }
     ] },
     { type: "summary", typeLabel: "Key Takeaways", title: "Remember This", content: [
-      { kind: "bullets", items: ["Wearable AI is constrained by power, thermal, and memory — not compute", "Hierarchical architecture: always-on detector -> on-device NPU -> phone -> cloud", "Design for offline-first — connectivity is a bonus, not a requirement", "Thermal budget is the real constraint — sustained performance matters more than peak"] },
+      { kind: "bullets", items: ["<strong>Real constraints</strong> — Wearable AI is constrained by power, thermal, and memory, not compute", "<strong>Hierarchical architecture</strong> — Always-on detector to on-device NPU to phone to cloud", "<strong>Offline-first</strong> — Design for offline-first, connectivity is a bonus not a requirement", "<strong>Thermal budget</strong> — Sustained performance matters more than peak"] },
       { kind: "quality", items: [{ label: "Actionability", score: 5 }, { label: "Correctness", score: 5 }, { label: "Visual Appeal", score: 5 }, { label: "Engagement", score: 5 }] }
     ] }
   ] };
@@ -2310,7 +2310,7 @@ window.DEEP_DIVES[127] = { title: "Edge AI vs Cloud AI: The Wearable Trade-off",
     ] },
     { type: "problem", typeLabel: "The Problem", title: "Neither Extreme Works", content: [
       { kind: "text", value: "All-on-device limits intelligence. All-cloud kills battery and fails offline." },
-      { kind: "bullets", items: ["On-device only: models are small, capabilities are limited, no access to world knowledge", "Cloud only: 200ms+ latency, dead without connectivity, privacy concerns, high cost", "Naive hybrid: sending everything to cloud with local fallback wastes battery on easy tasks", "The real challenge: intelligently routing each request to the right compute tier"] }
+      { kind: "bullets", items: ["<strong>On-device limits</strong> — Models are small, capabilities are limited, no access to world knowledge", "<strong>Cloud limits</strong> — 200ms+ latency, dead without connectivity, privacy concerns, high cost", "<strong>Naive hybrid fails</strong> — Sending everything to cloud with local fallback wastes battery on easy tasks", "<strong>Routing challenge</strong> — Intelligently routing each request to the right compute tier"] }
     ] },
     { type: "concepts", typeLabel: "Core Concepts", title: "Hybrid Inference Patterns", content: [
       { kind: "bullets", items: ["<strong>Confidence-Based Routing</strong> — On-device model handles high-confidence predictions. Low confidence triggers cloud escalation.", "<strong>Complexity-Based Routing</strong> — Simple tasks (wake word, gesture) always local. Complex tasks (translation, scene description) always cloud.", "<strong>Connectivity-Aware</strong> — Adapt behavior based on signal strength. Strong WiFi: use cloud. Weak signal: local only.", "<strong>Battery-Aware</strong> — Switch from cloud (radio-heavy) to local-only when battery is below 20%.", "<strong>Privacy-Aware</strong> — Sensitive data (health, location, camera) processed locally. Non-sensitive queries can go to cloud."] },
@@ -2321,23 +2321,23 @@ window.DEEP_DIVES[127] = { title: "Edge AI vs Cloud AI: The Wearable Trade-off",
     ] },
     { type: "example", typeLabel: "Real-World Example", title: "Apple Watch: Hybrid AI in Practice", content: [
       { kind: "text", value: "Apple Watch demonstrates <strong>masterful hybrid routing</strong> across health, fitness, and assistant features:" },
-      { kind: "bullets", items: ["ECG and blood oxygen: always on-device — health data never leaves the watch", "Fall detection: on-device accelerometer model, cloud only for emergency call", "Siri: wake word on-device (co-processor), speech recognition on-device (Neural Engine), complex queries to cloud", "Workout detection: on-device classification from accelerometer + heart rate", "Crash detection: fuses accelerometer, gyroscope, barometer, GPS — all on-device, cloud only for 911 call"] },
+      { kind: "bullets", items: ["<strong>Health data local</strong> — ECG and blood oxygen always on-device, health data never leaves the watch", "<strong>Fall detection</strong> — On-device accelerometer model, cloud only for emergency call", "<strong>Siri hybrid</strong> — Wake word on co-processor, speech recognition on Neural Engine, complex queries to cloud", "<strong>Workout detection</strong> — On-device classification from accelerometer plus heart rate", "<strong>Crash detection</strong> — Fuses accelerometer, gyroscope, barometer, GPS all on-device, cloud only for 911 call"] },
       { kind: "sources", items: ["Apple, 'Apple Watch Series 9 Technical Specifications', 2023"] }
     ] },
     { type: "guide", typeLabel: "Step-by-Step Guide", title: "Design Your Hybrid Pipeline", content: [
-      { kind: "bullets", items: ["Step 1: Categorize every AI feature by privacy sensitivity, latency need, and complexity", "Step 2: Assign each feature a default tier: local-only, local-preferred, or cloud-required", "Step 3: Build the confidence-based router with fallback logic", "Step 4: Add battery and connectivity awareness to the router", "Step 5: Measure end-to-end latency and battery impact for each routing path", "Step 6: A/B test routing thresholds — optimize for user satisfaction, not just accuracy"] }
+      { kind: "bullets", items: ["<strong>Categorize features</strong> — Classify every AI feature by privacy sensitivity, latency need, and complexity", "<strong>Assign tiers</strong> — Each feature gets a default tier: local-only, local-preferred, or cloud-required", "<strong>Build router</strong> — Build the confidence-based router with fallback logic", "<strong>Context awareness</strong> — Add battery and connectivity awareness to the router", "<strong>Measure impact</strong> — Measure end-to-end latency and battery impact for each routing path", "<strong>Optimize thresholds</strong> — A/B test routing thresholds, optimize for user satisfaction not just accuracy"] }
     ] },
     { type: "practices", typeLabel: "Best Practices", title: "Hybrid AI Rules", content: [
-      { kind: "bullets", items: ["✅ Privacy-sensitive data (health, camera, mic) stays on-device by default", "✅ Degrade gracefully — local-only mode must be useful, not just a loading spinner", "✅ Pre-compute and cache cloud results for common queries", "❌ Do not assume connectivity — design local-first, cloud as enhancement", "❌ Do not send raw sensor data to cloud — process locally, send features or summaries", "❌ Do not drain battery for marginal quality improvement — users prefer longer battery life"] }
+      { kind: "bullets", items: ["<strong>✅ Privacy on-device</strong> — Privacy-sensitive data (health, camera, mic) stays on-device by default", "<strong>✅ Graceful degradation</strong> — Local-only mode must be useful, not just a loading spinner", "<strong>✅ Cache cloud results</strong> — Pre-compute and cache cloud results for common queries", "<strong>❌ Local-first design</strong> — Do not assume connectivity, design local-first with cloud as enhancement", "<strong>❌ No raw uploads</strong> — Do not send raw sensor data to cloud, process locally and send features", "<strong>❌ Battery over quality</strong> — Do not drain battery for marginal quality improvement, users prefer battery life"] }
     ] },
     { type: "pitfalls", typeLabel: "Common Pitfalls", title: "Anti-Patterns", content: [
       { kind: "bullets", items: ["<strong>The Cloud Default</strong> — Sending everything to cloud, local as afterthought. Battery dies in 2 hours.", "<strong>The Binary Switch</strong> — Either fully local or fully cloud. No intelligence in routing.", "<strong>The Privacy Leak</strong> — Sending raw camera frames to cloud for 'scene understanding'. Process locally, send labels.", "<strong>The Offline Brick</strong> — Device becomes useless without connectivity. Must have meaningful local capabilities."] }
     ] },
     { type: "action", typeLabel: "Your Action Plan", title: "Build Hybrid Inference", content: [
-      { kind: "bullets", items: ["Categorize your AI features into local-only, hybrid, and cloud-only", "Implement a confidence-based router for one feature", "Measure battery impact of local vs cloud inference paths", "Test offline mode — does your device still provide value?"] }
+      { kind: "bullets", items: ["<strong>Categorize features</strong> — Sort your AI features into local-only, hybrid, and cloud-only", "<strong>Build router</strong> — Implement a confidence-based router for one feature", "<strong>Battery comparison</strong> — Measure battery impact of local vs cloud inference paths", "<strong>Offline testing</strong> — Test offline mode to verify your device still provides value"] }
     ] },
     { type: "summary", typeLabel: "Key Takeaways", title: "Remember This", content: [
-      { kind: "bullets", items: ["Neither all-local nor all-cloud works for wearables — hybrid is the answer", "Route based on privacy, latency, confidence, battery, and connectivity", "Design local-first, cloud as enhancement — offline must be useful", "Battery life is the user experience metric that trumps all others"] },
+      { kind: "bullets", items: ["<strong>Hybrid is the answer</strong> — Neither all-local nor all-cloud works for wearables", "<strong>Multi-factor routing</strong> — Route based on privacy, latency, confidence, battery, and connectivity", "<strong>Local-first design</strong> — Design local-first with cloud as enhancement, offline must be useful", "<strong>Battery is king</strong> — Battery life is the user experience metric that trumps all others"] },
       { kind: "quality", items: [{ label: "Actionability", score: 5 }, { label: "Correctness", score: 5 }, { label: "Visual Appeal", score: 5 }, { label: "Engagement", score: 5 }] }
     ] }
   ] };
@@ -2350,7 +2350,7 @@ window.DEEP_DIVES[128] = { title: "Designing AI for Always-On Devices", icon: "�
     ] },
     { type: "problem", typeLabel: "The Problem", title: "Continuous Inference Kills Batteries in Hours", content: [
       { kind: "text", value: "Running a neural network continuously on the main processor <strong>drains a watch battery in 2-3 hours</strong>." },
-      { kind: "bullets", items: ["Main CPU inference: 100-500mW — unsustainable for always-on", "Radio (BLE/WiFi): 50-200mW per transmission — cloud calls are expensive", "Display: 10-50mW — showing AI results costs power too", "Sensor polling: 1-10mW per sensor — more sensors = more drain"] }
+      { kind: "bullets", items: ["<strong>CPU power drain</strong> — Main CPU inference at 100-500mW is unsustainable for always-on", "<strong>Radio costs</strong> — BLE/WiFi at 50-200mW per transmission makes cloud calls expensive", "<strong>Display overhead</strong> — Showing AI results costs 10-50mW of power too", "<strong>Sensor polling</strong> — 1-10mW per sensor, more sensors means more drain"] }
     ] },
     { type: "concepts", typeLabel: "Core Concepts", title: "Always-On AI Architecture", content: [
       { kind: "bullets", items: ["<strong>Hierarchical Wake</strong> — Ultra-low-power detector wakes higher-power systems. Like a security guard who only calls the police when needed.", "<strong>Duty Cycling</strong> — Run inference periodically (every 5s) instead of continuously. Reduces power proportionally.", "<strong>Sensor Batching</strong> — Collect sensor data in hardware FIFO, process in bursts. CPU sleeps between bursts.", "<strong>Thermal-Aware Scheduling</strong> — Reduce inference frequency when device temperature rises. Prevent skin discomfort.", "<strong>Activity-State Machine</strong> — Different power modes: sleep, idle, low-activity, high-activity. Each with different AI capabilities."] },
@@ -2361,23 +2361,23 @@ window.DEEP_DIVES[128] = { title: "Designing AI for Always-On Devices", icon: "�
     ] },
     { type: "example", typeLabel: "Real-World Example", title: "Apple Watch Activity Tracking Architecture", content: [
       { kind: "text", value: "Apple Watch achieves <strong>18-hour battery life while continuously tracking health and fitness</strong>:" },
-      { kind: "bullets", items: ["Always-on accelerometer on co-processor: <0.5mW, detects wrist raise and basic motion", "Activity classification runs on Neural Engine only when motion detected — not continuously", "Heart rate sensor: duty-cycled every 5 minutes at rest, continuous only during workouts", "Blood oxygen: spot-checks only, never continuous (too power-hungry)", "Fall detection: always-on accelerometer triggers gyroscope + barometer only on sudden deceleration"] },
+      { kind: "bullets", items: ["<strong>Always-on accel</strong> — Co-processor at &lt;0.5mW detects wrist raise and basic motion", "<strong>Smart activation</strong> — Activity classification runs on Neural Engine only when motion detected", "<strong>Heart rate cycling</strong> — Duty-cycled every 5 minutes at rest, continuous only during workouts", "<strong>SpO2 spot checks</strong> — Blood oxygen spot-checks only, never continuous as too power-hungry", "<strong>Fall detection</strong> — Always-on accelerometer triggers gyroscope and barometer only on sudden deceleration"] },
       { kind: "sources", items: ["Apple, 'Designing for Apple Watch Power Efficiency', WWDC 2023"] }
     ] },
     { type: "guide", typeLabel: "Step-by-Step Guide", title: "Design Always-On AI", content: [
-      { kind: "bullets", items: ["Step 1: Define your total power budget (battery_mAh / target_hours * voltage)", "Step 2: Allocate power to AI: typically 10-20% of total budget", "Step 3: Design the hierarchical wake chain: what triggers what?", "Step 4: Implement duty cycling — how often does each model need to run?", "Step 5: Profile on real hardware — measure mW for each model at each duty cycle", "Step 6: Add thermal management — reduce duty cycle when temperature exceeds 40C"] }
+      { kind: "bullets", items: ["<strong>Calculate budget</strong> — Define your total power budget (battery_mAh / target_hours * voltage)", "<strong>Allocate to AI</strong> — Allocate power to AI, typically 10-20% of total budget", "<strong>Design wake chain</strong> — Design the hierarchical wake chain: what triggers what?", "<strong>Duty cycling</strong> — Implement duty cycling based on how often each model needs to run", "<strong>Profile on hardware</strong> — Measure mW for each model at each duty cycle on real hardware", "<strong>Thermal management</strong> — Add thermal management, reduce duty cycle when temperature exceeds 40C"] }
     ] },
     { type: "practices", typeLabel: "Best Practices", title: "Always-On Rules", content: [
-      { kind: "bullets", items: ["✅ Use co-processors for always-on tasks — main CPU stays in deep sleep", "✅ Batch sensor data in hardware FIFO — process in bursts, not continuously", "✅ Duty cycle aggressively — 5-second intervals are fine for most health features", "❌ Do not run neural networks on the main CPU for always-on features", "❌ Do not poll sensors at high frequency when user is stationary", "❌ Do not ignore thermal comfort — a hot watch on skin causes returns"] }
+      { kind: "bullets", items: ["<strong>✅ Co-processors</strong> — Use co-processors for always-on tasks, main CPU stays in deep sleep", "<strong>✅ Sensor batching</strong> — Batch sensor data in hardware FIFO, process in bursts not continuously", "<strong>✅ Aggressive duty cycling</strong> — 5-second intervals are fine for most health features", "<strong>❌ No CPU neural nets</strong> — Do not run neural networks on the main CPU for always-on features", "<strong>❌ Smart polling</strong> — Do not poll sensors at high frequency when user is stationary", "<strong>❌ Thermal comfort</strong> — Do not ignore it, a hot watch on skin causes returns"] }
     ] },
     { type: "pitfalls", typeLabel: "Common Pitfalls", title: "Anti-Patterns", content: [
       { kind: "bullets", items: ["<strong>The Continuous Loop</strong> — Running inference every frame instead of duty cycling. Battery dead by lunch.", "<strong>The CPU Inference</strong> — Using main CPU instead of NPU/DSP. 10-100x more power.", "<strong>The Sensor Storm</strong> — All sensors at max sample rate all the time. Most data is redundant.", "<strong>The Thermal Ignore</strong> — No throttling when device heats up. Users get skin discomfort."] }
     ] },
     { type: "action", typeLabel: "Your Action Plan", title: "Power Optimization", content: [
-      { kind: "bullets", items: ["Measure power consumption of your model on target hardware", "Implement duty cycling and measure battery life improvement", "Add a hierarchical wake: tiny model triggers larger model", "Profile thermal behavior over a 30-minute sustained workload"] }
+      { kind: "bullets", items: ["<strong>Measure power</strong> — Measure power consumption of your model on target hardware", "<strong>Add duty cycling</strong> — Implement duty cycling and measure battery life improvement", "<strong>Hierarchical wake</strong> — Add a hierarchical wake where tiny model triggers larger model", "<strong>Thermal profiling</strong> — Profile thermal behavior over a 30-minute sustained workload"] }
     ] },
     { type: "summary", typeLabel: "Key Takeaways", title: "Remember This", content: [
-      { kind: "bullets", items: ["Always-on AI must consume < 1mW — use co-processors, not main CPU", "Hierarchical wake: tiny detector triggers larger models on demand", "Duty cycling reduces power proportionally — 5s intervals are usually sufficient", "Thermal management is as important as battery management on skin-worn devices"] },
+      { kind: "bullets", items: ["<strong>Sub-1mW budget</strong> — Always-on AI must consume &lt; 1mW using co-processors, not main CPU", "<strong>Hierarchical wake</strong> — Tiny detector triggers larger models on demand", "<strong>Duty cycling</strong> — Reduces power proportionally, 5s intervals are usually sufficient", "<strong>Thermal management</strong> — As important as battery management on skin-worn devices"] },
       { kind: "quality", items: [{ label: "Actionability", score: 5 }, { label: "Correctness", score: 5 }, { label: "Visual Appeal", score: 5 }, { label: "Engagement", score: 5 }] }
     ] }
   ] };
@@ -2390,7 +2390,7 @@ window.DEEP_DIVES[129] = { title: "AI Model Compression for Wearables", icon: "�
     ] },
     { type: "problem", typeLabel: "The Problem", title: "Wearable Memory Is Measured in Megabytes, Not Gigabytes", content: [
       { kind: "text", value: "On a smartwatch, your AI model competes with the OS, apps, and sensor buffers for <strong>extremely limited memory</strong>." },
-      { kind: "bullets", items: ["Total RAM: 512MB-1GB shared with everything else", "AI budget: 10-50MB for all models combined", "Flash storage for models: 32-128MB", "Runtime memory: model weights + activations + buffers must all fit"] }
+      { kind: "bullets", items: ["<strong>Limited RAM</strong> — Total RAM is 512MB-1GB shared with everything else", "<strong>Tiny AI budget</strong> — Only 10-50MB for all models combined", "<strong>Flash storage</strong> — 32-128MB available for models on flash storage", "<strong>Runtime fits</strong> — Model weights plus activations plus buffers must all fit"] }
     ] },
     { type: "concepts", typeLabel: "Core Concepts", title: "Wearable Compression Techniques", content: [
       { kind: "bullets", items: ["<strong>INT4 Quantization</strong> — 4-bit weights. 8x smaller than FP32. Ideal for classification on wearables.", "<strong>Binary/Ternary Networks</strong> — 1-2 bit weights. 32x compression. Used for wake-word and gesture detection.", "<strong>Structured Pruning</strong> — Remove entire channels/heads. Smaller AND faster (unlike unstructured pruning).", "<strong>Knowledge Distillation</strong> — Train tiny student from large teacher. Captures 'dark knowledge' in soft labels.", "<strong>Weight Sharing/Clustering</strong> — Group weights into K clusters. Store indices instead of values. Apple's palettization."] },
@@ -2405,19 +2405,19 @@ window.DEEP_DIVES[129] = { title: "AI Model Compression for Wearables", icon: "�
       { kind: "sources", items: ["Google AI Blog, 'Streaming On-Device Detection of Wake Words', 2023"] }
     ] },
     { type: "guide", typeLabel: "Step-by-Step Guide", title: "Compress Your Model for Wearables", content: [
-      { kind: "bullets", items: ["Step 1: Define target size and latency — what fits in your memory budget?", "Step 2: Start with architecture design — MobileNet, EfficientNet-Lite, or custom tiny model", "Step 3: Distill from your best large model to the tiny architecture", "Step 4: Apply QAT (quantization-aware training) — INT8 first, INT4 if needed", "Step 5: Prune structured (channels) and retrain to recover accuracy", "Step 6: Convert to target runtime (TFLite Micro, Core ML, ONNX) and benchmark on device"] }
+      { kind: "bullets", items: ["<strong>Define targets</strong> — Set target size and latency based on your memory budget", "<strong>Architecture first</strong> — Start with MobileNet, EfficientNet-Lite, or custom tiny model", "<strong>Distill knowledge</strong> — Distill from your best large model to the tiny architecture", "<strong>Apply QAT</strong> — Apply quantization-aware training, INT8 first then INT4 if needed", "<strong>Structured pruning</strong> — Prune structured channels and retrain to recover accuracy", "<strong>Convert and benchmark</strong> — Convert to TFLite Micro, Core ML, or ONNX and benchmark on device"] }
     ] },
     { type: "practices", typeLabel: "Best Practices", title: "Compression Rules", content: [
-      { kind: "bullets", items: ["✅ Design tiny architectures first — compressing a big model is harder than building small", "✅ Use QAT over PTQ — training-time quantization retains more accuracy", "✅ Measure on-device, not on desktop — hardware-specific optimizations matter", "❌ Do not compress below the quality floor — a fast wrong answer is worse than a slow right one", "❌ Do not skip distillation — tiny models trained from scratch perform worse than distilled ones", "❌ Do not ignore activation memory — weights are small but activations can be large"] }
+      { kind: "bullets", items: ["<strong>✅ Tiny architectures</strong> — Design tiny architectures first, compressing a big model is harder than building small", "<strong>✅ QAT over PTQ</strong> — Training-time quantization retains more accuracy", "<strong>✅ On-device measurement</strong> — Measure on-device, not on desktop, hardware-specific optimizations matter", "<strong>❌ Respect quality floor</strong> — Do not compress below the quality floor, a fast wrong answer is worse", "<strong>❌ Always distill</strong> — Do not skip distillation, tiny models trained from scratch perform worse", "<strong>❌ Activation memory</strong> — Do not ignore activation memory, weights are small but activations can be large"] }
     ] },
     { type: "pitfalls", typeLabel: "Common Pitfalls", title: "Anti-Patterns", content: [
       { kind: "bullets", items: ["<strong>Shrink-to-Fit</strong> — Taking a 500MB model and compressing to 5MB. Start with a tiny architecture instead.", "<strong>Weight-Only Focus</strong> — Compressing weights but ignoring activation memory. Activations dominate for large inputs.", "<strong>Desktop Benchmarking</strong> — Reporting latency on x86 CPU. ARM NPU performance is completely different.", "<strong>Accuracy-Only Eval</strong> — Model is accurate but too slow for real-time. Measure latency AND accuracy."] }
     ] },
     { type: "action", typeLabel: "Your Action Plan", title: "Compression Sprint", content: [
-      { kind: "bullets", items: ["Pick a model and quantize to INT8 — measure size and accuracy change", "Try distillation: train a model 1/10 the size using your best model as teacher", "Convert to TFLite and benchmark on a phone NPU", "Target: model under 5MB that runs in under 20ms on mobile"] }
+      { kind: "bullets", items: ["<strong>Quantize to INT8</strong> — Pick a model and quantize, measure size and accuracy change", "<strong>Try distillation</strong> — Train a model 1/10 the size using your best model as teacher", "<strong>Benchmark on NPU</strong> — Convert to TFLite and benchmark on a phone NPU", "<strong>Set target</strong> — Target model under 5MB that runs in under 20ms on mobile"] }
     ] },
     { type: "summary", typeLabel: "Key Takeaways", title: "Remember This", content: [
-      { kind: "bullets", items: ["Wearable models must be KB-scale, not MB-scale — design tiny from the start", "Distillation + QAT + pruning = the compression stack for wearables", "50KB wake-word models prove that tiny can be excellent", "Measure on real hardware — desktop and device performance differ dramatically"] },
+      { kind: "bullets", items: ["<strong>KB-scale models</strong> — Wearable models must be KB-scale, not MB-scale, design tiny from the start", "<strong>Compression stack</strong> — Distillation plus QAT plus pruning equals the compression stack for wearables", "<strong>Tiny can excel</strong> — 50KB wake-word models prove that tiny can be excellent", "<strong>Real hardware</strong> — Measure on real hardware, desktop and device performance differ dramatically"] },
       { kind: "quality", items: [{ label: "Actionability", score: 5 }, { label: "Correctness", score: 5 }, { label: "Visual Appeal", score: 5 }, { label: "Engagement", score: 5 }] }
     ] }
   ] };
@@ -2430,7 +2430,7 @@ window.DEEP_DIVES[130] = { title: "Multimodal AI on Wearables", icon: "👓", ta
     ] },
     { type: "problem", typeLabel: "The Problem", title: "Each Sensor Alone Tells an Incomplete Story", content: [
       { kind: "text", value: "A camera sees but cannot hear. A microphone hears but has no visual context. <strong>Fusion turns partial signals into complete understanding.</strong>" },
-      { kind: "bullets", items: ["Camera alone: sees a person talking but cannot tell what they are saying", "Mic alone: hears speech but does not know who is speaking or the visual context", "IMU alone: knows user is moving but not what they are looking at", "GPS alone: knows location but not activity or environment"] }
+      { kind: "bullets", items: ["<strong>Camera alone</strong> — Sees a person talking but cannot tell what they are saying", "<strong>Mic alone</strong> — Hears speech but does not know who is speaking or the visual context", "<strong>IMU alone</strong> — Knows user is moving but not what they are looking at", "<strong>GPS alone</strong> — Knows location but not activity or environment"] }
     ] },
     { type: "concepts", typeLabel: "Core Concepts", title: "Sensor Fusion Architecture", content: [
       { kind: "bullets", items: ["<strong>Early Fusion</strong> — Concatenate raw sensor data before processing. Simple but requires all sensors synced.", "<strong>Late Fusion</strong> — Process each sensor independently, combine decisions. More robust to missing sensors.", "<strong>Attention-Based Fusion</strong> — Transformer attends across modalities. Learns which sensor matters most per context.", "<strong>Temporal Alignment</strong> — Synchronize sensors with different sample rates (camera 30fps, IMU 200Hz, audio 16kHz).", "<strong>Graceful Degradation</strong> — System works when sensors fail. Camera blocked? Use audio + IMU only."] },
@@ -2441,11 +2441,11 @@ window.DEEP_DIVES[130] = { title: "Multimodal AI on Wearables", icon: "👓", ta
     ] },
     { type: "example", typeLabel: "Real-World Example", title: "Ray-Ban Meta: Multimodal AI in Your Glasses", content: [
       { kind: "text", value: "Ray-Ban Meta glasses fuse <strong>vision, audio, and motion</strong> for contextual AI:" },
-      { kind: "bullets", items: ["Look and ask: camera captures scene, mic captures question, AI combines both for relevant answer", "Live translation: camera reads text, audio captures speech, translation displayed/spoken", "Hands-free photo: voice command + head pose + scene quality assessment for best shot timing", "Activity awareness: IMU detects cycling, camera confirms road, audio monitors traffic", "Context memory: 'What was the name of that restaurant?' — retrieves from 30-second visual buffer"] },
+      { kind: "bullets", items: ["<strong>Look and ask</strong> — Camera captures scene, mic captures question, AI combines both for relevant answer", "<strong>Live translation</strong> — Camera reads text, audio captures speech, translation displayed or spoken", "<strong>Hands-free photo</strong> — Voice command plus head pose plus scene quality assessment for best shot timing", "<strong>Activity awareness</strong> — IMU detects cycling, camera confirms road, audio monitors traffic", "<strong>Context memory</strong> — 'What was that restaurant?' retrieves from 30-second visual buffer"] },
       { kind: "sources", items: ["Meta, 'Meta AI on Ray-Ban Smart Glasses', 2024"] }
     ] },
     { type: "guide", typeLabel: "Step-by-Step Guide", title: "Build Multimodal Fusion", content: [
-      { kind: "bullets", items: ["Step 1: Define which sensors your use case needs — do not fuse for the sake of fusing", "Step 2: Choose fusion strategy — late fusion is more robust, early fusion is more accurate", "Step 3: Handle temporal alignment — different sensors have different sample rates", "Step 4: Design for missing modalities — camera blocked, mic muted, GPS indoors", "Step 5: Optimize per-modality encoders independently before fusing", "Step 6: Benchmark fusion benefit — does it actually improve over single-modal?"] }
+      { kind: "bullets", items: ["<strong>Define sensors</strong> — Determine which sensors your use case needs, do not fuse for its own sake", "<strong>Fusion strategy</strong> — Late fusion is more robust, early fusion is more accurate", "<strong>Temporal alignment</strong> — Handle different sensors with different sample rates", "<strong>Missing modalities</strong> — Design for camera blocked, mic muted, GPS indoors", "<strong>Optimize encoders</strong> — Optimize per-modality encoders independently before fusing", "<strong>Benchmark benefit</strong> — Verify fusion actually improves over single-modal"] }
     ] },
     { type: "practices", typeLabel: "Best Practices", title: "Fusion Principles", content: [
       { kind: "bullets", items: ["✅ Late fusion for robustness — system works when sensors fail", "✅ Process audio on DSP, vision on NPU — parallel, not sequential", "✅ Keep a temporal context buffer — past 30 seconds of fused features", "❌ Do not fuse everything — some features work better with single modality", "❌ Do not assume all sensors are available — design for degradation", "❌ Do not synchronize by polling — use hardware timestamps"] }
@@ -2454,10 +2454,10 @@ window.DEEP_DIVES[130] = { title: "Multimodal AI on Wearables", icon: "👓", ta
       { kind: "bullets", items: ["<strong>Fusion for Fusion's Sake</strong> — Adding sensors that do not improve the task. More modalities = more power.", "<strong>Sequential Processing</strong> — Vision then audio then IMU. Fuse in parallel for lower latency.", "<strong>Missing Sensor Crash</strong> — System fails when one sensor is unavailable. Design for graceful degradation.", "<strong>Clock Drift</strong> — Sensors with different clocks become misaligned over time. Use hardware sync."] }
     ] },
     { type: "action", typeLabel: "Your Action Plan", title: "Fusion Exploration", content: [
-      { kind: "bullets", items: ["Pick a task and benchmark single-modal vs multimodal accuracy", "Implement late fusion with two modalities (e.g., audio + accelerometer)", "Add graceful degradation — test with one sensor disabled", "Measure fusion latency — must fit within your real-time budget"] }
+      { kind: "bullets", items: ["<strong>Benchmark fusion</strong> — Pick a task and benchmark single-modal vs multimodal accuracy", "<strong>Implement fusion</strong> — Implement late fusion with two modalities like audio plus accelerometer", "<strong>Test degradation</strong> — Add graceful degradation and test with one sensor disabled", "<strong>Measure latency</strong> — Measure fusion latency, must fit within your real-time budget"] }
     ] },
     { type: "summary", typeLabel: "Key Takeaways", title: "Remember This", content: [
-      { kind: "bullets", items: ["Multimodal fusion turns partial sensor signals into complete understanding", "Late fusion is more robust; attention-based fusion learns optimal weighting", "Design for missing sensors — graceful degradation is mandatory", "Temporal alignment across different sample rates is a solved but critical problem"] },
+      { kind: "bullets", items: ["<strong>Complete understanding</strong> — Multimodal fusion turns partial sensor signals into complete understanding", "<strong>Fusion strategies</strong> — Late fusion is more robust; attention-based fusion learns optimal weighting", "<strong>Missing sensors</strong> — Design for missing sensors, graceful degradation is mandatory", "<strong>Temporal alignment</strong> — Alignment across different sample rates is a solved but critical problem"] },
       { kind: "quality", items: [{ label: "Actionability", score: 5 }, { label: "Correctness", score: 5 }, { label: "Visual Appeal", score: 5 }, { label: "Engagement", score: 5 }] }
     ] }
   ] };
@@ -2470,7 +2470,7 @@ window.DEEP_DIVES[131] = { title: "Real-Time AI Pipelines for Wearables", icon: 
     ] },
     { type: "problem", typeLabel: "The Problem", title: "Every Pipeline Stage Eats Into Your Budget", content: [
       { kind: "text", value: "A seemingly simple pipeline — sensor read, preprocess, inference, post-process, render — has <strong>5+ stages each consuming precious milliseconds</strong>." },
-      { kind: "bullets", items: ["Sensor read: 2-5ms (camera frame capture, audio buffer)", "Preprocessing: 3-10ms (resize, normalize, feature extraction)", "Model inference: 10-30ms (depends on model size and hardware)", "Post-processing: 2-5ms (NMS, decoding, formatting)", "Response: 2-10ms (display update, audio playback, haptic)"] }
+      { kind: "bullets", items: ["<strong>Sensor read</strong> — 2-5ms for camera frame capture and audio buffer", "<strong>Preprocessing</strong> — 3-10ms for resize, normalize, and feature extraction", "<strong>Model inference</strong> — 10-30ms depending on model size and hardware", "<strong>Post-processing</strong> — 2-5ms for NMS, decoding, and formatting", "<strong>Response</strong> — 2-10ms for display update, audio playback, or haptic"] }
     ] },
     { type: "concepts", typeLabel: "Core Concepts", title: "Real-Time Pipeline Optimization", content: [
       { kind: "bullets", items: ["<strong>Pipeline Parallelism</strong> — While frame N is in inference, frame N+1 is preprocessing. Overlap stages.", "<strong>Zero-Copy Buffers</strong> — Share memory between sensor and NPU without copying. Saves 2-5ms.", "<strong>Async Inference</strong> — Submit inference request, do other work, poll for result. Non-blocking.", "<strong>Frame Skipping</strong> — If pipeline falls behind, skip frames rather than queuing. Freshness over completeness.", "<strong>Result Caching</strong> — If scene has not changed significantly, reuse previous inference result."] },
@@ -2485,7 +2485,7 @@ window.DEEP_DIVES[131] = { title: "Real-Time AI Pipelines for Wearables", icon: 
       { kind: "sources", items: ["Snap, 'Spectacles Developer Documentation', 2024"] }
     ] },
     { type: "guide", typeLabel: "Step-by-Step Guide", title: "Build a Real-Time Pipeline", content: [
-      { kind: "bullets", items: ["Step 1: Define your latency budget — AR needs <30ms, voice needs <100ms", "Step 2: Profile each pipeline stage — find the bottleneck", "Step 3: Parallelize independent stages — preprocessing and previous inference overlap", "Step 4: Use zero-copy memory between sensor HAL and NPU", "Step 5: Implement frame skipping for graceful degradation under load", "Step 6: Add latency monitoring — alert when P95 exceeds budget"] }
+      { kind: "bullets", items: ["<strong>Define budget</strong> — Define your latency budget, AR needs &lt;30ms, voice needs &lt;100ms", "<strong>Profile stages</strong> — Profile each pipeline stage to find the bottleneck", "<strong>Parallelize stages</strong> — Preprocessing and previous inference overlap for speed", "<strong>Zero-copy memory</strong> — Use zero-copy memory between sensor HAL and NPU", "<strong>Frame skipping</strong> — Implement frame skipping for graceful degradation under load", "<strong>Latency monitoring</strong> — Add latency monitoring and alert when P95 exceeds budget"] }
     ] },
     { type: "practices", typeLabel: "Best Practices", title: "Real-Time Rules", content: [
       { kind: "bullets", items: ["✅ Pipeline stages in parallel, not sequential", "✅ Zero-copy buffers between sensor and inference engine", "✅ Skip frames rather than queue them — freshness matters", "❌ Do not allocate memory in the hot path — pre-allocate everything", "❌ Do not use Python for real-time pipelines — C/C++ or Rust only", "❌ Do not measure average latency — P95/P99 determines user experience"] }
@@ -2494,10 +2494,10 @@ window.DEEP_DIVES[131] = { title: "Real-Time AI Pipelines for Wearables", icon: 
       { kind: "bullets", items: ["<strong>The Sequential Pipeline</strong> — Each stage waits for the previous. Pipeline parallelism halves latency.", "<strong>The Memory Copy Tax</strong> — Copying frames between CPU, GPU, NPU. Use shared memory.", "<strong>The GC Pause</strong> — Using a garbage-collected language for real-time inference. Java/Python GC pauses kill latency.", "<strong>The Queue Buildup</strong> — Queuing frames when pipeline is slow. Frames become stale. Skip instead."] }
     ] },
     { type: "action", typeLabel: "Your Action Plan", title: "Pipeline Optimization", content: [
-      { kind: "bullets", items: ["Profile your current pipeline — where are the milliseconds going?", "Implement pipeline parallelism for at least two stages", "Add frame skipping for overload scenarios", "Benchmark P95 latency, not average — that is what users feel"] }
+      { kind: "bullets", items: ["<strong>Profile pipeline</strong> — Profile your current pipeline to find where the milliseconds go", "<strong>Add parallelism</strong> — Implement pipeline parallelism for at least two stages", "<strong>Frame skipping</strong> — Add frame skipping for overload scenarios", "<strong>Benchmark P95</strong> — Measure P95 latency, not average, that is what users feel"] }
     ] },
     { type: "summary", typeLabel: "Key Takeaways", title: "Remember This", content: [
-      { kind: "bullets", items: ["Real-time AI on wearables has a 50ms total budget from sensor to response", "Pipeline parallelism and zero-copy buffers are the biggest wins", "Skip frames rather than queue — freshness beats completeness", "Measure P95 latency, not average — tail latency is what users feel"] },
+      { kind: "bullets", items: ["<strong>50ms total budget</strong> — Real-time AI on wearables has a 50ms total budget from sensor to response", "<strong>Parallelism wins</strong> — Pipeline parallelism and zero-copy buffers are the biggest wins", "<strong>Skip over queue</strong> — Skip frames rather than queue, freshness beats completeness", "<strong>P95 matters</strong> — Measure P95 latency, not average, tail latency is what users feel"] },
       { kind: "quality", items: [{ label: "Actionability", score: 5 }, { label: "Correctness", score: 5 }, { label: "Visual Appeal", score: 5 }, { label: "Engagement", score: 5 }] }
     ] }
   ] };
@@ -2510,7 +2510,7 @@ window.DEEP_DIVES[132] = { title: "Privacy-First AI Architecture", icon: "🔏",
     ] },
     { type: "problem", typeLabel: "The Problem", title: "Wearables Capture the Most Intimate Data Possible", content: [
       { kind: "text", value: "Smart glasses record first-person video. Watches track health continuously. This data is <strong>orders of magnitude more sensitive</strong> than browsing history." },
-      { kind: "bullets", items: ["Continuous camera: captures faces of bystanders without consent", "Always-on mic: records conversations in private settings", "Health sensors: heart rate, blood oxygen, sleep patterns — medical-grade data", "Location + context: knows where you are, who you are with, what you are doing"] }
+      { kind: "bullets", items: ["<strong>Bystander faces</strong> — Continuous camera captures faces of bystanders without consent", "<strong>Private conversations</strong> — Always-on mic records conversations in private settings", "<strong>Medical-grade data</strong> — Health sensors capture heart rate, blood oxygen, sleep patterns", "<strong>Full context</strong> — Location plus context knows where you are, who you are with, what you are doing"] }
     ] },
     { type: "concepts", typeLabel: "Core Concepts", title: "Privacy-First Design Patterns", content: [
       { kind: "bullets", items: ["<strong>On-Device Processing</strong> — Raw sensor data never leaves the device. Only derived insights (labels, embeddings) are transmitted.", "<strong>Differential Privacy</strong> — Add noise to any data leaving the device. Mathematical guarantee that individuals cannot be identified.", "<strong>Federated Learning</strong> — Models improve from user data without data leaving devices. Gradients aggregated across thousands of users.", "<strong>Ephemeral Processing</strong> — Camera frames processed and immediately discarded. No persistent storage of raw images.", "<strong>User-Controlled Data Flows</strong> — Explicit opt-in for each data type. Users see exactly what is processed and where."] },
@@ -2521,11 +2521,11 @@ window.DEEP_DIVES[132] = { title: "Privacy-First AI Architecture", icon: "🔏",
     ] },
     { type: "example", typeLabel: "Real-World Example", title: "Apple's Privacy Architecture for Vision Pro", content: [
       { kind: "text", value: "Apple Vision Pro processes <strong>all camera and eye-tracking data entirely on-device</strong>:" },
-      { kind: "bullets", items: ["Eye tracking data never leaves the device — apps cannot access raw gaze data", "Persona (avatar) rendering happens on-device — camera feeds are not transmitted", "Optic ID (iris authentication): processed and stored only in Secure Enclave", "Apps receive only derived interaction events (tap, look, pinch) — not raw sensor data", "Even Apple cannot access the raw sensor streams from a user's device"] },
+      { kind: "bullets", items: ["<strong>Eye tracking private</strong> — Data never leaves the device, apps cannot access raw gaze data", "<strong>On-device avatars</strong> — Persona rendering happens on-device, camera feeds are not transmitted", "<strong>Secure Enclave ID</strong> — Optic ID iris authentication processed and stored only in Secure Enclave", "<strong>Derived events only</strong> — Apps receive only derived interaction events (tap, look, pinch) not raw data", "<strong>Apple excluded</strong> — Even Apple cannot access the raw sensor streams from a user's device"] },
       { kind: "sources", items: ["Apple, 'Privacy and Apple Vision Pro', apple.com, 2024"] }
     ] },
     { type: "guide", typeLabel: "Step-by-Step Guide", title: "Design Privacy-First AI", content: [
-      { kind: "bullets", items: ["Step 1: Classify all data by sensitivity — what must never leave the device?", "Step 2: Process raw sensor data on-device — send only derived labels/features", "Step 3: Implement ephemeral processing — delete raw data immediately after inference", "Step 4: Add user controls — explicit opt-in per data type, visible indicators", "Step 5: Use federated learning for model improvement — no centralized raw data", "Step 6: Encrypt all stored data — at rest and in transit"] }
+      { kind: "bullets", items: ["<strong>Classify sensitivity</strong> — Determine what data must never leave the device", "<strong>On-device processing</strong> — Process raw sensor data on-device, send only derived labels", "<strong>Ephemeral data</strong> — Delete raw data immediately after inference", "<strong>User controls</strong> — Explicit opt-in per data type with visible indicators", "<strong>Federated learning</strong> — Use federated learning for model improvement without centralizing data", "<strong>Encrypt everything</strong> — Encrypt all stored data at rest and in transit"] }
     ] },
     { type: "practices", typeLabel: "Best Practices", title: "Privacy Rules", content: [
       { kind: "bullets", items: ["✅ Raw sensor data (camera, mic) processed and deleted on-device", "✅ Visible indicator when camera/mic is active (LED on glasses)", "✅ User can see exactly what data flows where", "❌ Do not send raw images or audio to the cloud — send labels only", "❌ Do not store raw sensor data persistently — ephemeral processing", "❌ Do not collect data without informed, explicit consent per data type"] }
@@ -2534,10 +2534,10 @@ window.DEEP_DIVES[132] = { title: "Privacy-First AI Architecture", icon: "🔏",
       { kind: "bullets", items: ["<strong>The Cloud Shortcut</strong> — Sending camera frames to cloud for 'better AI'. Destroys trust.", "<strong>The Consent Dark Pattern</strong> — Burying data consent in 40-page ToS. Make it explicit and clear.", "<strong>The Data Hoard</strong> — Storing sensor data 'just in case.' Minimize retention, delete aggressively.", "<strong>The Invisible Collection</strong> — No indicator that camera/mic is active. LED must be hardware-controlled."] }
     ] },
     { type: "action", typeLabel: "Your Action Plan", title: "Privacy Audit", content: [
-      { kind: "bullets", items: ["Map every data flow in your wearable AI pipeline — where does each sensor signal go?", "Identify any raw sensor data leaving the device — eliminate or replace with labels", "Add ephemeral processing — verify raw data is deleted after inference", "Review user consent flows — are they clear, explicit, and per-data-type?"] }
+      { kind: "bullets", items: ["<strong>Map data flows</strong> — Map every data flow in your wearable AI pipeline", "<strong>Audit raw data</strong> — Identify any raw sensor data leaving the device, eliminate or replace with labels", "<strong>Verify deletion</strong> — Add ephemeral processing, verify raw data is deleted after inference", "<strong>Review consent</strong> — Review user consent flows for clarity and per-data-type explicitness"] }
     ] },
     { type: "summary", typeLabel: "Key Takeaways", title: "Remember This", content: [
-      { kind: "bullets", items: ["Wearable cameras and mics capture the most intimate data possible — process on-device", "Send labels and features, never raw images or audio, to the cloud", "Ephemeral processing: capture, infer, delete — no persistent raw storage", "Privacy is a competitive advantage — users choose devices they trust"] },
+      { kind: "bullets", items: ["<strong>On-device processing</strong> — Wearable cameras and mics capture the most intimate data, process on-device", "<strong>Labels only</strong> — Send labels and features, never raw images or audio, to the cloud", "<strong>Ephemeral processing</strong> — Capture, infer, delete with no persistent raw storage", "<strong>Privacy as advantage</strong> — Privacy is a competitive advantage, users choose devices they trust"] },
       { kind: "quality", items: [{ label: "Actionability", score: 5 }, { label: "Correctness", score: 5 }, { label: "Visual Appeal", score: 5 }, { label: "Engagement", score: 5 }] }
     ] }
   ] };
@@ -2550,7 +2550,7 @@ window.DEEP_DIVES[133] = { title: "The System Design of Smart Glasses", icon: "�
     ] },
     { type: "problem", typeLabel: "The Problem", title: "Every Subsystem Fights for the Same Scarce Resources", content: [
       { kind: "text", value: "Weight, power, and thermal budget are <strong>zero-sum games</strong>. More AI capability means less battery or more heat." },
-      { kind: "bullets", items: ["Camera pipeline competes with audio pipeline for NPU time", "Display brightness trades off against battery life", "Radio (BLE + WiFi) is the biggest single power consumer", "Thermal envelope: glasses on your face cannot exceed 40C comfortably"] }
+      { kind: "bullets", items: ["<strong>NPU contention</strong> — Camera pipeline competes with audio pipeline for NPU time", "<strong>Display trade-off</strong> — Display brightness trades off against battery life", "<strong>Radio power</strong> — Radio (BLE + WiFi) is the biggest single power consumer", "<strong>Thermal limit</strong> — Glasses on your face cannot exceed 40C comfortably"] }
     ] },
     { type: "concepts", typeLabel: "Core Concepts", title: "Smart Glasses System Architecture", content: [
       { kind: "bullets", items: ["<strong>Camera Pipeline</strong> — Capture -> ISP -> encode/AI inference. Dual cameras for depth/stereo.", "<strong>Audio Pipeline</strong> — Mic array -> DSP -> beamforming -> ASR. Open-ear speakers with spatial audio.", "<strong>AI Subsystem</strong> — NPU + DSP for on-device inference. Scene understanding, object detection, NLU.", "<strong>Display Subsystem</strong> — Micro-LED or waveguide for AR overlays. Must be readable in sunlight.", "<strong>Communication</strong> — BLE 5.3 to phone, WiFi for cloud. Protocol design critical for power.", "<strong>Power Management</strong> — Dynamic voltage/frequency scaling. Thermal throttling. Charging case.", "<strong>Sensor Hub</strong> — IMU, GPS, proximity, ambient light. Low-power co-processor aggregation."] },
@@ -2561,23 +2561,23 @@ window.DEEP_DIVES[133] = { title: "The System Design of Smart Glasses", icon: "�
     ] },
     { type: "example", typeLabel: "Real-World Example", title: "Ray-Ban Meta: Anatomy of a Smart Glass", content: [
       { kind: "text", value: "The Ray-Ban Meta smart glasses <strong>pack an entire AI computer into a form factor indistinguishable from regular sunglasses</strong>:" },
-      { kind: "bullets", items: ["SoC: Qualcomm AR1 Gen 1 — custom 4nm chip with integrated AI accelerator", "Camera: 12MP ultra-wide with auto-HDR and video stabilization", "Audio: 5-mic array with beamforming + open-ear speakers with spatial audio", "Battery: split across both temples, ~300mAh total, 4 hours mixed use", "Connectivity: BLE 5.3 to Meta View app on phone, WiFi for firmware updates", "AI: wake word, scene understanding, Meta AI assistant (via phone + cloud)", "Privacy: hardware LED on when camera is active — cannot be disabled by software"] },
+      { kind: "bullets", items: ["<strong>Custom SoC</strong> — Qualcomm AR1 Gen 1, custom 4nm chip with integrated AI accelerator", "<strong>Camera</strong> — 12MP ultra-wide with auto-HDR and video stabilization", "<strong>Audio</strong> — 5-mic array with beamforming plus open-ear speakers with spatial audio", "<strong>Battery</strong> — Split across both temples, ~300mAh total, 4 hours mixed use", "<strong>Connectivity</strong> — BLE 5.3 to Meta View app on phone, WiFi for firmware updates", "<strong>AI</strong> — Wake word, scene understanding, Meta AI assistant via phone and cloud", "<strong>Privacy</strong> — Hardware LED on when camera is active, cannot be disabled by software"] },
       { kind: "sources", items: ["Meta, 'Ray-Ban Meta Smart Glasses Specifications', 2023", "iFixit, 'Ray-Ban Meta Teardown', 2023"] }
     ] },
     { type: "guide", typeLabel: "Step-by-Step Guide", title: "Design a Smart Glass Product", content: [
-      { kind: "bullets", items: ["Step 1: Define the use case — assistant? AR overlay? Camera? Each drives different hardware trade-offs", "Step 2: Choose SoC — Qualcomm AR1/AR2, or custom silicon for differentiation", "Step 3: Design the power budget — allocate mW to each subsystem", "Step 4: Build the AI pipeline — what runs on-device vs what offloads to phone/cloud", "Step 5: Design the audio system — beamforming for noise rejection, open-ear for safety", "Step 6: Industrial design integration — all electronics must fit in standard frame dimensions"] }
+      { kind: "bullets", items: ["<strong>Define use case</strong> — Assistant, AR overlay, or camera? Each drives different hardware trade-offs", "<strong>Choose SoC</strong> — Qualcomm AR1/AR2, or custom silicon for differentiation", "<strong>Power budget</strong> — Design the power budget and allocate mW to each subsystem", "<strong>AI pipeline</strong> — Decide what runs on-device vs what offloads to phone or cloud", "<strong>Audio design</strong> — Beamforming for noise rejection, open-ear for safety", "<strong>Industrial design</strong> — All electronics must fit in standard frame dimensions"] }
     ] },
     { type: "practices", typeLabel: "Best Practices", title: "Smart Glasses Design Rules", content: [
-      { kind: "bullets", items: ["✅ Hardware privacy LED — user and bystanders must know when camera is active", "✅ Split battery across both temples for weight balance", "✅ Thermal simulation before hardware build — validate comfort", "❌ Do not add a display unless the use case demands it — it adds weight, cost, and power", "❌ Do not rely on WiFi — BLE to phone is the primary connectivity path", "❌ Do not exceed 55g total weight — users will not wear them all day"] }
+      { kind: "bullets", items: ["✅ Hardware privacy LED — user and bystanders must know when camera is active", "✅ Split battery across both temples for weight balance", "✅ Thermal simulation before hardware build — validate comfort", "<strong>❌ Skip display</strong> — Do not add a display unless the use case demands it, adds weight and power", "❌ Do not rely on WiFi — BLE to phone is the primary connectivity path", "❌ Do not exceed 55g total weight — users will not wear them all day"] }
     ] },
     { type: "pitfalls", typeLabel: "Common Pitfalls", title: "Smart Glass Anti-Patterns", content: [
       { kind: "bullets", items: ["<strong>The Feature Creep</strong> — Adding display, LiDAR, and cellular modem. Each adds weight and drains battery. Ruthlessly prioritize.", "<strong>The Google Glass Mistake</strong> — Designing for tech enthusiasts, not regular people. It must look like normal glasses.", "<strong>The Privacy Afterthought</strong> — No camera indicator. Google Glass failed partly because bystanders felt surveilled.", "<strong>The Battery Lie</strong> — Quoting battery life for idle, not active AI use. Test under real usage patterns."] }
     ] },
     { type: "action", typeLabel: "Your Action Plan", title: "Smart Glasses Exploration", content: [
-      { kind: "bullets", items: ["Study the Ray-Ban Meta teardown (iFixit) to understand component layout", "Profile a camera + AI pipeline on a phone to estimate wearable requirements", "Design a power budget spreadsheet: component x power x duty cycle = total draw", "Build a proof-of-concept with a phone: camera + voice + AI assistant pipeline"] }
+      { kind: "bullets", items: ["<strong>Study teardown</strong> — Study the Ray-Ban Meta teardown (iFixit) to understand component layout", "<strong>Profile pipeline</strong> — Profile a camera plus AI pipeline on a phone to estimate wearable requirements", "<strong>Power spreadsheet</strong> — Design a power budget spreadsheet: component x power x duty cycle = total draw", "<strong>Build prototype</strong> — Build a proof-of-concept with a phone: camera, voice, and AI assistant pipeline"] }
     ] },
     { type: "summary", typeLabel: "Key Takeaways", title: "Remember This", content: [
-      { kind: "bullets", items: ["Smart glasses are the most constrained computing platform: 50g, 300mAh, 40C thermal limit", "Seven subsystems compete for resources: camera, audio, AI, display, comms, power, sensors", "Privacy hardware indicator is non-negotiable — LED must be on when camera is active", "The hardest challenge is not the AI — it is fitting everything in a form factor people want to wear"] },
+      { kind: "bullets", items: ["<strong>Most constrained</strong> — Smart glasses are the most constrained computing platform: 50g, 300mAh, 40C thermal", "<strong>Resource competition</strong> — Seven subsystems compete: camera, audio, AI, display, comms, power, sensors", "<strong>Privacy LED required</strong> — Privacy hardware indicator is non-negotiable when camera is active", "<strong>Form factor challenge</strong> — The hardest challenge is fitting everything in a form factor people want to wear"] },
       { kind: "quality", items: [{ label: "Actionability", score: 5 }, { label: "Correctness", score: 5 }, { label: "Visual Appeal", score: 5 }, { label: "Engagement", score: 5 }] }
     ] }
   ] };
@@ -2590,7 +2590,7 @@ window.DEEP_DIVES[134] = { title: "AI Quality Evaluation for Wearable Devices", 
     ] },
     { type: "problem", typeLabel: "The Problem", title: "Cloud AI Eval Does Not Work for Wearables", content: [
       { kind: "text", value: "Standard ML evaluation — accuracy on a test set — <strong>misses most failure modes</strong> on wearable devices." },
-      { kind: "bullets", items: ["Accuracy is necessary but not sufficient — a correct answer in 200ms is a failure on glasses", "Lab testing misses real-world conditions: motion blur, wind noise, thermal throttling", "A/B testing requires massive user populations — wearable install bases are smaller", "Ground truth is ambiguous — 'Is this a good scene description?' is subjective", "Power and thermal impact of evaluation itself changes the thing being measured"] }
+      { kind: "bullets", items: ["<strong>Beyond accuracy</strong> — A correct answer in 200ms is a failure on glasses, accuracy alone is not sufficient", "<strong>Lab limitations</strong> — Lab testing misses real-world conditions: motion blur, wind noise, thermal throttling", "<strong>Small install base</strong> — A/B testing requires massive user populations but wearable install bases are smaller", "<strong>Ambiguous ground truth</strong> — 'Is this a good scene description?' is subjective", "<strong>Observer effect</strong> — Power and thermal impact of evaluation itself changes the thing being measured"] }
     ] },
     { type: "concepts", typeLabel: "Core Concepts", title: "Wearable AI Evaluation Framework", content: [
       { kind: "bullets", items: ["<strong>Multi-Dimensional Quality</strong> — Accuracy + latency + power + thermal + user satisfaction. All must pass simultaneously.", "<strong>In-Situ Evaluation</strong> — Test in real-world conditions: walking, noisy environments, variable lighting. Lab results lie.", "<strong>Egocentric Data</strong> — First-person perspective data from glasses. Fundamentally different from internet images/audio.", "<strong>Subjective Quality Metrics</strong> — MOS (Mean Opinion Score), pairwise preference, task completion rate.", "<strong>Regression Testing</strong> — Automated pipelines catch quality regressions before they ship to devices."] },
@@ -2605,19 +2605,19 @@ window.DEEP_DIVES[134] = { title: "AI Quality Evaluation for Wearable Devices", 
       { kind: "sources", items: ["Meta, 'Project Aria: Egocentric AI Research', 2023"] }
     ] },
     { type: "guide", typeLabel: "Step-by-Step Guide", title: "Build Your Wearable Eval Pipeline", content: [
-      { kind: "bullets", items: ["Step 1: Collect egocentric test data — not internet data, actual device recordings", "Step 2: Define multi-dimensional quality gates: accuracy AND latency AND power AND thermal", "Step 3: Build automated regression testing — run on every model change", "Step 4: Add robustness testing — noise, motion blur, low light, thermal throttling", "Step 5: Run human evaluation for subjective quality — MOS or pairwise preference", "Step 6: Dogfood — team members use the device daily and report issues systematically"] }
+      { kind: "bullets", items: ["<strong>Egocentric data</strong> — Collect from actual device recordings, not internet data", "<strong>Quality gates</strong> — Define multi-dimensional gates: accuracy AND latency AND power AND thermal", "<strong>Regression testing</strong> — Build automated regression testing that runs on every model change", "<strong>Robustness testing</strong> — Test with noise, motion blur, low light, and thermal throttling", "<strong>Human evaluation</strong> — Run human evaluation for subjective quality using MOS or pairwise preference", "<strong>Dogfooding</strong> — Team members use the device daily and report issues systematically"] }
     ] },
     { type: "practices", typeLabel: "Best Practices", title: "Wearable Eval Principles", content: [
-      { kind: "bullets", items: ["✅ Test on actual hardware under thermal load — simulators miss throttling effects", "✅ Multi-dimensional gates: accuracy alone is insufficient", "✅ Egocentric test data — first-person perspective differs from standard datasets", "❌ Do not rely solely on automated metrics — human eval catches context-dependent failures", "❌ Do not test only in lab conditions — real-world conditions are drastically different", "❌ Do not measure evaluation overhead as part of the latency budget"] }
+      { kind: "bullets", items: ["<strong>✅ Real hardware tests</strong> — Test on actual hardware under thermal load, simulators miss throttling", "<strong>✅ Multi-dimensional</strong> — Multi-dimensional gates because accuracy alone is insufficient", "<strong>✅ Egocentric data</strong> — First-person perspective differs from standard datasets", "<strong>❌ Human eval needed</strong> — Do not rely solely on automated metrics, human eval catches context failures", "<strong>❌ Real-world testing</strong> — Do not test only in lab conditions, real-world conditions differ drastically", "<strong>❌ Exclude eval overhead</strong> — Do not measure evaluation overhead as part of the latency budget"] }
     ] },
     { type: "pitfalls", typeLabel: "Common Pitfalls", title: "Eval Anti-Patterns", content: [
       { kind: "bullets", items: ["<strong>The Lab-Only Eval</strong> — Perfect in the lab, fails in sunlight and wind. Test in real conditions.", "<strong>The Accuracy Tunnel</strong> — Model hits 95% accuracy but takes 200ms. Failed on latency gate.", "<strong>The Internet Dataset</strong> — Training and evaluating on web images for an egocentric camera. Domain mismatch.", "<strong>The Cold Start Benchmark</strong> — Measuring latency on first inference. Real P95 includes thermal-throttled state."] }
     ] },
     { type: "action", typeLabel: "Your Action Plan", title: "Eval Sprint", content: [
-      { kind: "bullets", items: ["Record 100+ egocentric test samples from your device in varied conditions", "Define quality gates across at least 4 dimensions (accuracy, latency, power, thermal)", "Build an automated regression pipeline that runs on every model change", "Run your first human evaluation panel — even 10 raters provide useful signal"] }
+      { kind: "bullets", items: ["<strong>Record test data</strong> — Record 100+ egocentric test samples from your device in varied conditions", "<strong>Define quality gates</strong> — Cover at least 4 dimensions: accuracy, latency, power, thermal", "<strong>Automated regression</strong> — Build an automated regression pipeline that runs on every model change", "<strong>Human evaluation</strong> — Run your first human evaluation panel, even 10 raters provide useful signal"] }
     ] },
     { type: "summary", typeLabel: "Key Takeaways", title: "Remember This", content: [
-      { kind: "bullets", items: ["Wearable AI eval requires multi-dimensional quality gates, not just accuracy", "Test on real hardware under real conditions — lab results are optimistic", "Egocentric data is fundamentally different from internet data — collect your own", "Human evaluation is essential for subjective quality that metrics cannot capture"] },
+      { kind: "bullets", items: ["<strong>Multi-dimensional gates</strong> — Wearable AI eval requires multi-dimensional quality gates, not just accuracy", "<strong>Real hardware testing</strong> — Test on real hardware under real conditions, lab results are optimistic", "<strong>Egocentric data</strong> — Fundamentally different from internet data, collect your own", "<strong>Human evaluation</strong> — Essential for subjective quality that metrics cannot capture"] },
       { kind: "quality", items: [{ label: "Actionability", score: 5 }, { label: "Correctness", score: 5 }, { label: "Visual Appeal", score: 5 }, { label: "Engagement", score: 5 }] }
     ] }
   ] };
@@ -2630,7 +2630,7 @@ window.DEEP_DIVES[135] = { title: "Testing AI on Resource-Constrained Hardware",
     ] },
     { type: "problem", typeLabel: "The Problem", title: "Simulators and Emulators Lie", content: [
       { kind: "text", value: "Development happens on powerful machines. Deployment happens on <strong>power-constrained, thermally-limited, memory-starved devices</strong>." },
-      { kind: "bullets", items: ["Simulator has unlimited memory — device OOMs on large inputs", "Emulator has no thermal model — device throttles after 30 seconds", "Desktop runs FP32 — device NPU only supports INT8 with different numerics", "Test data fits in memory — production sensor streams are continuous and unbounded"] }
+      { kind: "bullets", items: ["<strong>Memory gap</strong> — Simulator has unlimited memory while device OOMs on large inputs", "<strong>No thermal model</strong> — Emulator has no thermal model while device throttles after 30 seconds", "<strong>Numeric differences</strong> — Desktop runs FP32 but device NPU only supports INT8 with different numerics", "<strong>Unbounded streams</strong> — Test data fits in memory but production sensor streams are continuous"] }
     ] },
     { type: "concepts", typeLabel: "Core Concepts", title: "Hardware-in-the-Loop Testing", content: [
       { kind: "bullets", items: ["<strong>Device Farm</strong> — Pool of real devices for automated testing. Each test runs on actual hardware.", "<strong>Thermal Profiling</strong> — Measure model performance at cold start AND after 5 minutes of sustained use.", "<strong>Memory Profiling</strong> — Track peak memory including activations, not just model weights.", "<strong>Power Profiling</strong> — Measure actual mW consumption with hardware power monitors.", "<strong>Stress Testing</strong> — Run inference continuously for hours. Find the OOM, the thermal cliff, the memory leak."] },
@@ -2641,11 +2641,11 @@ window.DEEP_DIVES[135] = { title: "Testing AI on Resource-Constrained Hardware",
     ] },
     { type: "example", typeLabel: "Real-World Example", title: "How Apple Tests Core ML Models for Watch", content: [
       { kind: "text", value: "Apple's testing infrastructure for Apple Watch models is <strong>rigorous and hardware-first</strong>:" },
-      { kind: "bullets", items: ["Every Core ML model benchmarked on actual Watch hardware before approval", "Thermal chamber testing: run model at 0C, 25C, and 45C ambient", "Battery drain testing: measure mAh consumed per 1000 inferences", "24-hour soak test: run continuously to find memory leaks and thermal issues", "Accuracy verification: INT8 on Neural Engine vs FP32 on desktop — must match within tolerance"] },
+      { kind: "bullets", items: ["<strong>Hardware benchmarks</strong> — Every Core ML model benchmarked on actual Watch hardware before approval", "<strong>Thermal chambers</strong> — Run model at 0C, 25C, and 45C ambient", "<strong>Battery testing</strong> — Measure mAh consumed per 1000 inferences", "<strong>Soak testing</strong> — 24-hour continuous run to find memory leaks and thermal issues", "<strong>Accuracy verification</strong> — INT8 on Neural Engine vs FP32 on desktop must match within tolerance"] },
       { kind: "sources", items: ["Apple, 'Core ML Performance Guidelines', developer.apple.com"] }
     ] },
     { type: "guide", typeLabel: "Step-by-Step Guide", title: "Set Up Device Testing", content: [
-      { kind: "bullets", items: ["Step 1: Get real hardware — at least 3 devices for consistent benchmarking", "Step 2: Build automated deployment — push model, run benchmark, collect results", "Step 3: Measure cold AND sustained performance — the gap reveals thermal issues", "Step 4: Profile peak memory — include activations, not just weights", "Step 5: Run 24-hour soak test — find memory leaks and long-term degradation", "Step 6: Automate in CI — every model change triggers a device benchmark"] }
+      { kind: "bullets", items: ["<strong>Get real hardware</strong> — At least 3 devices for consistent benchmarking", "<strong>Automate deployment</strong> — Push model, run benchmark, collect results automatically", "<strong>Cold vs sustained</strong> — Measure cold AND sustained performance, the gap reveals thermal issues", "<strong>Profile peak memory</strong> — Include activations, not just weights", "<strong>24-hour soak test</strong> — Find memory leaks and long-term degradation", "<strong>CI integration</strong> — Every model change triggers a device benchmark"] }
     ] },
     { type: "practices", typeLabel: "Best Practices", title: "Testing Principles", content: [
       { kind: "bullets", items: ["✅ Always benchmark on real device — simulators cannot model thermal or power", "✅ Measure sustained performance, not just cold start", "✅ Verify numerical accuracy on device — INT8 on NPU may differ from FP32", "❌ Do not trust emulator latency — real device is 2-5x slower", "❌ Do not skip soak testing — memory leaks appear after hours, not seconds", "❌ Do not benchmark only on newest hardware — test on oldest supported device"] }
@@ -2654,10 +2654,10 @@ window.DEEP_DIVES[135] = { title: "Testing AI on Resource-Constrained Hardware",
       { kind: "bullets", items: ["<strong>The Flagship Benchmark</strong> — Testing only on newest device. Oldest supported device is the real target.", "<strong>The Cold Start Lie</strong> — Reporting first-inference latency. After 5 minutes of use, thermal throttling halves throughput.", "<strong>The Desktop Accuracy</strong> — Accuracy matches on desktop but differs on device due to quantization rounding.", "<strong>The Memory Snapshot</strong> — Measuring memory at one point. Peak memory during inference can be 3x the steady state."] }
     ] },
     { type: "action", typeLabel: "Your Action Plan", title: "Testing Sprint", content: [
-      { kind: "bullets", items: ["Deploy your model on a real phone/watch and measure latency", "Run it continuously for 5 minutes — observe thermal throttling", "Compare model accuracy on device vs desktop — any differences?", "Profile peak memory including activations — does it fit?"] }
+      { kind: "bullets", items: ["<strong>Deploy on device</strong> — Deploy your model on a real phone or watch and measure latency", "<strong>Sustained test</strong> — Run it continuously for 5 minutes and observe thermal throttling", "<strong>Accuracy comparison</strong> — Compare model accuracy on device vs desktop for any differences", "<strong>Memory profile</strong> — Profile peak memory including activations to verify it fits"] }
     ] },
     { type: "summary", typeLabel: "Key Takeaways", title: "Remember This", content: [
-      { kind: "bullets", items: ["Simulators and emulators cannot model thermal throttling, power drain, or NPU quirks", "Sustained performance (after thermal throttling) is 30-50% lower than cold start", "Test on the oldest supported device, not the newest", "Automate device benchmarks in CI — every model change must pass hardware gates"] },
+      { kind: "bullets", items: ["<strong>Simulator limits</strong> — Simulators cannot model thermal throttling, power drain, or NPU quirks", "<strong>Sustained performance</strong> — After thermal throttling, performance is 30-50% lower than cold start", "<strong>Oldest device target</strong> — Test on the oldest supported device, not the newest", "<strong>CI hardware gates</strong> — Automate device benchmarks in CI, every model change must pass hardware gates"] },
       { kind: "quality", items: [{ label: "Actionability", score: 5 }, { label: "Correctness", score: 5 }, { label: "Visual Appeal", score: 5 }, { label: "Engagement", score: 5 }] }
     ] }
   ] };
