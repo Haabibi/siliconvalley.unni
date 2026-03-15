@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>System Design in the Age of Vibe Coding</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --border: #1e1e2e;
+    --text: #e4e4ef;
+    --muted: #7a7a8e;
+    --accent-purple: #a855f7;
+    --accent-blue: #3b82f6;
+    --accent-cyan: #06b6d4;
+    --accent-pink: #ec4899;
+    --accent-orange: #f97316;
+    --accent-green: #22c55e;
+    --accent-red: #ef4444;
+    --accent-yellow: #eab308;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    text-align: center;
+    padding: 80px 24px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 600px 400px at 30% 20%, rgba(168,85,247,.12), transparent),
+      radial-gradient(ellipse 500px 350px at 70% 60%, rgba(59,130,246,.10), transparent);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, rgba(168,85,247,.15), rgba(59,130,246,.15));
+    border: 1px solid rgba(168,85,247,.25);
+    color: var(--accent-purple);
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: clamp(2.4rem, 6vw, 4.2rem);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+    margin-bottom: 16px;
+  }
+  .hero h1 .gradient {
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue), var(--accent-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero p {
+    color: var(--muted);
+    font-size: 1.1rem;
+    max-width: 580px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* ── Card Grid ── */
+  .grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px 100px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 28px;
+  }
+
+  /* ── Card ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 36px 32px 32px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform .25s, box-shadow .25s, border-color .25s;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px -12px rgba(0,0,0,.5);
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 20px 20px 0 0;
+  }
+  .card:hover::before { height: 4px; }
+  .card::after {
+    content: 'Click to explore →';
+    position: absolute;
+    bottom: 14px; right: 20px;
+    font-size: .7rem;
+    color: rgba(255,255,255,.25);
+    transition: color .25s;
+  }
+  .card:hover::after { color: var(--card-accent, rgba(255,255,255,.5)); }
+
+  /* Accent colors per card */
+  .card[data-accent="purple"]        { --card-accent: var(--accent-purple); }
+  .card[data-accent="blue"]          { --card-accent: var(--accent-blue); }
+  .card[data-accent="cyan"]          { --card-accent: var(--accent-cyan); }
+  .card[data-accent="pink"]          { --card-accent: var(--accent-pink); }
+  .card[data-accent="orange"]        { --card-accent: var(--accent-orange); }
+  .card[data-accent="green"]         { --card-accent: var(--accent-green); }
+  .card[data-accent="red"]           { --card-accent: var(--accent-red); }
+  .card[data-accent="yellow"]        { --card-accent: var(--accent-yellow); }
+  .card::before { background: var(--card-accent); }
+  .card:hover   { border-color: color-mix(in srgb, var(--card-accent) 30%, transparent); }
+
+  /* Glow on hover */
+  .card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    background: radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--card-accent) 6%, transparent), transparent 70%);
+    opacity: 0;
+    transition: opacity .3s;
+    pointer-events: none;
+  }
+  .card:hover::after { opacity: 1; }
+
+  /* Card number */
+  .card-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--card-accent);
+    opacity: .7;
+    margin-bottom: 14px;
+    letter-spacing: 1px;
+  }
+
+  /* Icon */
+  .card-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    background: color-mix(in srgb, var(--card-accent) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--card-accent) 18%, transparent);
+  }
+
+  .card h2 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+    line-height: 1.25;
+  }
+  .card .subtitle {
+    font-size: .85rem;
+    color: var(--card-accent);
+    font-weight: 600;
+    margin-bottom: 14px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .card .body {
+    color: var(--muted);
+    font-size: .92rem;
+    line-height: 1.65;
+    margin-bottom: 20px;
+  }
+
+  /* Bullet list */
+  .card ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+  }
+  .card ul li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 8px;
+    font-size: .88rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .card ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--card-accent);
+    font-weight: 700;
+  }
+
+  /* Vibe tag */
+  .vibe-tag {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 8px;
+    font-size: .75rem;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    background: color-mix(in srgb, var(--card-accent) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--card-accent) 20%, transparent);
+    color: var(--card-accent);
+  }
+
+  /* Code snippet */
+  .code-block {
+    background: #0d0d14;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .78rem;
+    line-height: 1.6;
+    color: var(--muted);
+    overflow-x: auto;
+  }
+  .code-block .keyword { color: var(--accent-purple); }
+  .code-block .string  { color: var(--accent-green); }
+  .code-block .comment { color: #444460; font-style: italic; }
+  .code-block .fn      { color: var(--accent-blue); }
+  .code-block .type    { color: var(--accent-cyan); }
+
+  /* Warning box */
+  .warning-box {
+    background: rgba(239,68,68,.06);
+    border-left: 3px solid var(--accent-red);
+    border-radius: 0 10px 10px 0;
+    padding: 12px 16px;
+    margin-bottom: 18px;
+    font-size: .84rem;
+    color: #f08080;
+    line-height: 1.55;
+  }
+
+  /* Tip box */
+  .tip-box {
+    background: rgba(34,197,94,.06);
+    border-left: 3px solid var(--accent-green);
+    border-radius: 0 10px 10px 0;
+    padding: 12px 16px;
+    margin-bottom: 18px;
+    font-size: .84rem;
+    color: #6ee7a0;
+    line-height: 1.55;
+  }
+
+  /* Wide card */
+  .card.wide {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+  @media (max-width: 768px) {
+    .card.wide { grid-template-columns: 1fr; gap: 20px; }
+    .grid { grid-template-columns: 1fr; }
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 40px 24px 60px;
+    color: var(--muted);
+    font-size: .82rem;
+  }
+  .footer a {
+    color: var(--accent-purple);
+    text-decoration: none;
+  }
+
+  /* ── Section Dividers ── */
+  .section-divider {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 24px 20px;
+    position: relative;
+  }
+  .section-divider::before {
+    content: '';
+    position: absolute;
+    top: 30px;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+  }
+  .section-divider h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: inline-block;
+    background: var(--bg);
+    padding: 0 20px;
+    position: relative;
+  }
+  .section-divider .section-count {
+    display: block;
+    font-size: .75rem;
+    color: var(--accent-purple);
+    font-family: 'JetBrains Mono', monospace;
+    margin-top: 6px;
+    opacity: .6;
+  }
+
+  /* ── Navigation ── */
+  .nav-bar {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+  .nav-pill {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: .75rem;
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    text-decoration: none;
+    transition: all .2s;
+  }
+  .nav-pill:hover {
+    border-color: var(--accent-purple);
+    color: var(--accent-purple);
+    background: rgba(168,85,247,.06);
+  }
+  .counter-badge {
+    display: inline-block;
+    text-align: center;
+    padding: 20px 24px 10px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .counter-badge span {
+    background: linear-gradient(135deg, rgba(168,85,247,.12), rgba(59,130,246,.12));
+    border: 1px solid rgba(168,85,247,.2);
+    padding: 8px 20px;
+    border-radius: 100px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .8rem;
+    color: var(--accent-purple);
+    font-weight: 700;
+  }
+
+  /* Make cards clickable */
+  .card { cursor: pointer; }
+
+  /* ── Deep-Dive Modal ── */
+  .dd-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0,0,0,.85);
+    backdrop-filter: blur(12px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity .3s;
+  }
+  .dd-overlay.active { display: flex; opacity: 1; }
+
+  .dd-container {
+    width: 100%;
+    max-width: 860px;
+    max-height: 90vh;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: 0 40px 100px -20px rgba(0,0,0,.6);
+  }
+
+  /* Top accent bar */
+  .dd-accent-bar {
+    height: 4px;
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  /* Header */
+  .dd-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 28px 16px;
+    flex-shrink: 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .dd-header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .dd-header-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    font-size: 22px;
+  }
+  .dd-header-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+  }
+  .dd-header-sub {
+    font-size: .75rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    margin-top: 2px;
+  }
+  .dd-close {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    font-size: 18px;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: all .2s;
+  }
+  .dd-close:hover {
+    border-color: var(--accent-red);
+    color: var(--accent-red);
+    background: rgba(239,68,68,.08);
+  }
+
+  /* Progress bar */
+  .dd-progress {
+    height: 3px;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+  .dd-progress-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width .3s ease;
+  }
+
+  /* Slide content */
+  .dd-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 32px 36px 24px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  .dd-body::-webkit-scrollbar { width: 6px; }
+  .dd-body::-webkit-scrollbar-track { background: transparent; }
+  .dd-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  .dd-slide { display: none; animation: slideIn .3s ease; }
+  .dd-slide.active { display: block; }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Slide type label */
+  .dd-type-label {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: .7rem;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .dd-slide-title {
+    font-size: 1.6rem;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .dd-slide-body {
+    color: var(--muted);
+    font-size: .95rem;
+    line-height: 1.75;
+    margin-bottom: 20px;
+  }
+  .dd-slide-body strong { color: var(--text); }
+
+  /* Slide bullet list */
+  .dd-bullets {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+  }
+  .dd-bullets li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 12px;
+    font-size: .9rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .dd-bullets li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    opacity: .7;
+  }
+  .dd-bullets li strong { color: var(--text); }
+
+  /* Slide code block */
+  .dd-code {
+    background: #0a0a12;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .8rem;
+    line-height: 1.65;
+    color: var(--muted);
+    overflow-x: auto;
+    white-space: pre;
+  }
+
+  /* Slide callout boxes */
+  .dd-callout {
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    font-size: .88rem;
+    line-height: 1.6;
+  }
+  .dd-callout.insight {
+    background: rgba(168,85,247,.06);
+    border-left: 3px solid var(--accent-purple);
+    color: #c4a5f7;
+  }
+  .dd-callout.warning {
+    background: rgba(239,68,68,.06);
+    border-left: 3px solid var(--accent-red);
+    color: #f08080;
+  }
+  .dd-callout.action {
+    background: rgba(34,197,94,.06);
+    border-left: 3px solid var(--accent-green);
+    color: #6ee7a0;
+  }
+  .dd-callout.example {
+    background: rgba(59,130,246,.06);
+    border-left: 3px solid var(--accent-blue);
+    color: #7eb8f7;
+  }
+
+  /* Stat blocks */
+  .dd-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+  .dd-stat {
+    background: rgba(255,255,255,.03);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+  }
+  .dd-stat-value {
+    font-size: 1.5rem;
+    font-weight: 900;
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 4px;
+  }
+  .dd-stat-label {
+    font-size: .72rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .5px;
+  }
+
+  /* Source citations */
+  .dd-sources {
+    margin-top: 20px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+  .dd-sources-label {
+    font-size: .65rem;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  .dd-source-item {
+    font-size: .78rem;
+    color: var(--muted);
+    padding: 3px 0;
+    line-height: 1.4;
+  }
+
+  /* Quality scores */
+  .dd-quality {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .dd-q-item {
+    background: rgba(255,255,255,.02);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 10px;
+    text-align: center;
+  }
+  .dd-q-label {
+    font-size: .65rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    margin-bottom: 8px;
+  }
+  .dd-q-dots {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+  }
+  .dd-q-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+  .dd-q-dot.filled { background: currentColor; }
+
+  /* Footer nav */
+  .dd-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 28px;
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .dd-page-info {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .75rem;
+    color: var(--muted);
+  }
+  .dd-nav-btns {
+    display: flex;
+    gap: 10px;
+  }
+  .dd-nav-btn {
+    padding: 8px 20px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    font-size: .82rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .dd-nav-btn:hover {
+    border-color: var(--accent-purple);
+    background: rgba(168,85,247,.06);
+  }
+  .dd-nav-btn.primary {
+    background: var(--accent-purple);
+    border-color: var(--accent-purple);
+    color: #fff;
+  }
+  .dd-nav-btn.primary:hover {
+    background: #9333ea;
+  }
+  .dd-nav-btn:disabled {
+    opacity: .3;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  /* Keyboard hint */
+  .dd-keys {
+    font-size: .68rem;
+    color: var(--muted);
+    opacity: .5;
+  }
+  .dd-keys kbd {
+    display: inline-block;
+    padding: 2px 6px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .65rem;
+    margin: 0 2px;
+  }
+
+  @media (max-width: 768px) {
+    .dd-body { padding: 24px 20px 16px; }
+    .dd-slide-title { font-size: 1.3rem; }
+    .dd-quality { grid-template-columns: repeat(2, 1fr); }
+    .dd-stats { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════ HERO ════════════ -->
+<header class="hero">
+  <div class="hero-badge">System Design Series</div>
+  <h1>Build Systems That <span class="gradient">Survive the Vibe</span></h1>
+  <p>You don't need a CS degree. You don't need a bootcamp. You need 100 days on this account. 300 cards covering system design, AI agents, MCP, wearables AI, and engineering career strategy.</p>
+</header>
+
+<!-- ════════════ NAVIGATION ════════════ -->
+<div class="counter-badge"><span>300 Cards &middot; 12 Weeks &middot; 100-Day Challenge</span></div>
+<nav class="nav-bar">
+  <a href="#vibe-coding" class="nav-pill">Vibe Coding</a>
+  <a href="#mcp" class="nav-pill">MCP Protocol</a>
+  <a href="#agents" class="nav-pill">AI Agents</a>
+  <a href="#llm-engineering" class="nav-pill">LLM Engineering</a>
+  <a href="#ai-infra" class="nav-pill">AI Infrastructure</a>
+  <a href="#wearables" class="nav-pill">Wearables AI</a>
+  <a href="#patterns" class="nav-pill">Architecture Patterns</a>
+  <a href="#data" class="nav-pill">Data &amp; Storage</a>
+  <a href="#streaming" class="nav-pill">Streaming</a>
+  <a href="#infrastructure" class="nav-pill">Infrastructure</a>
+  <a href="#sre" class="nav-pill">SRE &amp; Case Studies</a>
+  <a href="#career" class="nav-pill">Career &amp; Vision</a>
+</nav>
+
+<!-- ════════════ CARDS ════════════ -->
+<section class="grid" id="cardGrid">
+  <!-- Cards generated dynamically from deep dive data -->
+</section>
+
+<footer class="footer">
+  @siliconvalley.unni — 300 system design concepts in 100 days. You don't need a CS degree. You need this account.
+</footer>
+
+<!-- ════════════ DEEP DIVE MODAL ════════════ -->
+<div class="dd-overlay" id="ddOverlay">
+  <div class="dd-container" id="ddContainer">
+    <div class="dd-accent-bar" id="ddAccentBar"></div>
+    <div class="dd-header">
+      <div class="dd-header-left">
+        <div class="dd-header-icon" id="ddIcon"></div>
+        <div>
+          <div class="dd-header-title" id="ddTitle"></div>
+          <div class="dd-header-sub" id="ddSub"></div>
+        </div>
+      </div>
+      <button class="dd-close" id="ddClose">&times;</button>
+    </div>
+    <div class="dd-progress"><div class="dd-progress-fill" id="ddProgressFill"></div></div>
+    <div class="dd-body" id="ddBody"></div>
+    <div class="dd-footer">
+      <div>
+        <div class="dd-page-info" id="ddPageInfo"></div>
+        <div class="dd-keys"><kbd>←</kbd> <kbd>→</kbd> navigate &middot; <kbd>Esc</kbd> close</div>
+      </div>
+      <div class="dd-nav-btns">
+        <button class="dd-nav-btn" id="ddPrev">← Previous</button>
+        <button class="dd-nav-btn primary" id="ddNext">Next →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Deep-dive content (must load before DD engine) -->
+<script src="deepdives-part1.js"></script>
+<script src="deepdives-part2.js"></script>
+<script src="deepdives-part3.js"></script>
+<script src="deepdives-part4.js"></script>
+<script src="deepdives-part5.js"></script>
+<script src="deepdives-part6.js"></script>
+
+<script>
+// ═══════════ VISUAL CONTENT ENGINE ═══════════
+function _extractLabel(item) {
+  const m = item.match(/<strong>([^<]+)<\/strong>/);
+  if (m) return m[1];
+  const plain = item.replace(/<[^>]+>/g, '');
+  const dashMatch = plain.match(/^(.+?)(?:\s+(?:&mdash;|—|–)\s+)/);
+  if (dashMatch) return dashMatch[1].trim();
+  const full = plain.trim();
+  return full.length > 80 ? full.substring(0, 77) + '...' : full;
+}
+function _extractDesc(item) {
+  const plain = item.replace(/<[^>]+>/g, '');
+  const m = plain.match(/(?:&mdash;|—|–)\s+(.+)/);
+  if (m) { const d = m[1].trim(); return d.length > 70 ? d.substring(0, 67) + '...' : d; }
+  return '';
+}
+// Timeline (how/guide)
+function _ddTimeline(items, color) {
+  const entries = items.slice(0, 6).map(it => ({ l: _extractLabel(it), d: _extractDesc(it) }));
+  const stepIcons = ['🎯','⚡','🔧','📦','🚀','✅'];
+  let h = '<div style="position:relative;margin:20px 0;display:flex;flex-direction:column;gap:0">';
+  // Glowing connector line
+  h += `<div style="position:absolute;left:28px;top:28px;bottom:28px;width:3px;background:linear-gradient(180deg,${color},${color}80,${color}20);border-radius:3px;z-index:0;box-shadow:0 0 12px ${color}40"></div>`;
+  entries.forEach((e, i) => {
+    const isLast = i === entries.length - 1;
+    const delay = i * 0.08;
+    h += `<div style="position:relative;display:flex;align-items:stretch;gap:16px;margin-bottom:${isLast ? '0' : '6'}px;animation:ddStepIn .4s ease ${delay}s both">
+      <div style="position:relative;z-index:1;flex-shrink:0;display:flex;flex-direction:column;align-items:center">
+        <div style="width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,${color}25,${color}08);border:1.5px solid ${color}50;display:flex;align-items:center;justify-content:center;font-size:22px;position:relative;backdrop-filter:blur(8px)">
+          ${stepIcons[i] || '📌'}
+          <div style="position:absolute;top:-4px;right:-4px;width:20px;height:20px;border-radius:50%;background:${color};display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#fff;box-shadow:0 2px 8px ${color}60">${i+1}</div>
+        </div>
+      </div>
+      <div style="flex:1;padding:12px 18px;border-radius:14px;background:linear-gradient(135deg,rgba(255,255,255,.04),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.07);position:relative;overflow:hidden;min-height:52px;display:flex;flex-direction:column;justify-content:center;transition:border-color .2s,background .2s"
+        onmouseover="this.style.borderColor='${color}40';this.style.background='linear-gradient(135deg,${color}10,${color}04)'"
+        onmouseout="this.style.borderColor='rgba(255,255,255,.07)';this.style.background='linear-gradient(135deg,rgba(255,255,255,.04),rgba(255,255,255,.01))'">
+        <div style="position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,${color}${i === 0 ? '' : '60'},transparent);opacity:.7"></div>
+        <div style="font-size:15px;font-weight:800;color:#fff;line-height:1.35">${e.l}</div>
+        ${e.d ? `<div style="font-size:12.5px;color:#8a8a9e;margin-top:4px;line-height:1.45">${e.d}</div>` : ''}
+      </div>
+    </div>`;
+    // Arrow connector between steps
+    if (!isLast) {
+      h += `<div style="position:relative;left:28px;z-index:1;display:flex;align-items:center;justify-content:center;height:6px">
+        <div style="color:${color}60;font-size:10px;line-height:1">▼</div>
+      </div>`;
+    }
+  });
+  h += '</div>';
+  // Inject keyframes if not already present
+  h += `<style>@keyframes ddStepIn{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:translateX(0)}}</style>`;
+  return h;
+}
+// Concept cards (concepts)
+function _ddConcepts(items, color) {
+  const entries = items.slice(0, 5).map(it => ({ l: _extractLabel(it), d: _extractDesc(it) }));
+  const icons = ['💡','🔑','⚙️','🧩','🎯'];
+  let h = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0">';
+  entries.forEach((e, i) => {
+    const delay = i * 0.07;
+    // If odd number of items, last one spans full width
+    const spanFull = (entries.length % 2 !== 0 && i === entries.length - 1);
+    h += `<div style="${spanFull ? 'grid-column:1/-1;' : ''}border-radius:16px;overflow:hidden;background:linear-gradient(145deg,rgba(255,255,255,.04),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.07);position:relative;transition:border-color .25s,transform .25s,box-shadow .25s;animation:ddCardPop .35s ease ${delay}s both"
+      onmouseover="this.style.borderColor='${color}40';this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px ${color}15'"
+      onmouseout="this.style.borderColor='rgba(255,255,255,.07)';this.style.transform='translateY(0)';this.style.boxShadow='none'">
+      <div style="height:3px;background:linear-gradient(90deg,${color},${color}40)"></div>
+      <div style="padding:18px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+          <div style="width:38px;height:38px;border-radius:12px;background:${color}15;border:1px solid ${color}25;display:flex;align-items:center;justify-content:center;font-size:18px">${icons[i] || '📌'}</div>
+          <div style="font-size:11px;font-weight:900;color:${color};letter-spacing:1.5px;text-transform:uppercase">0${i+1}</div>
+        </div>
+        <div style="font-size:15px;font-weight:800;color:#fff;line-height:1.3;margin-bottom:5px">${e.l}</div>
+        ${e.d ? `<div style="font-size:12.5px;color:#8a8a9e;line-height:1.45">${e.d}</div>` : ''}
+      </div>
+    </div>`;
+  });
+  h += '</div>';
+  h += `<style>@keyframes ddCardPop{from{opacity:0;transform:scale(.95) translateY(8px)}to{opacity:1;transform:scale(1) translateY(0)}}</style>`;
+  return h;
+}
+// Problem list (problem)
+function _ddProblems(items, color) {
+  const entries = items.slice(0, 4).map(it => ({ l: _extractLabel(it), d: _extractDesc(it) }));
+  const sevIcons = ['🔴','🟠','🟡','⚠️'];
+  let h = '<div style="display:flex;flex-direction:column;gap:10px;margin:20px 0">';
+  entries.forEach((e, i) => {
+    const delay = i * 0.08;
+    h += `<div style="display:flex;align-items:center;gap:16px;padding:16px 18px;border-radius:14px;background:linear-gradient(135deg,rgba(239,68,68,.06),rgba(239,68,68,.02));border:1px solid rgba(239,68,68,.15);position:relative;overflow:hidden;transition:border-color .25s,transform .2s,box-shadow .25s;animation:ddProbSlide .4s ease ${delay}s both"
+      onmouseover="this.style.borderColor='rgba(239,68,68,.35)';this.style.transform='translateX(4px)';this.style.boxShadow='0 4px 20px rgba(239,68,68,.1)'"
+      onmouseout="this.style.borderColor='rgba(239,68,68,.15)';this.style.transform='translateX(0)';this.style.boxShadow='none'">
+      <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,#ef4444,#ef444440);border-radius:0 3px 3px 0"></div>
+      <div style="width:44px;height:44px;border-radius:12px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:20px">${sevIcons[i] || '⚠️'}</div>
+      <div style="flex:1">
+        <div style="font-size:15px;font-weight:800;color:#fff;line-height:1.3">${e.l}</div>
+        ${e.d ? `<div style="font-size:12.5px;color:#8a8a9e;margin-top:4px;line-height:1.45">${e.d}</div>` : ''}
+      </div>
+      <div style="font-size:20px;font-weight:900;color:#ef4444;opacity:.15;flex-shrink:0;font-family:monospace">${String(i+1).padStart(2,'0')}</div>
+    </div>`;
+  });
+  h += '</div>';
+  h += `<style>@keyframes ddProbSlide{from{opacity:0;transform:translateX(-16px)}to{opacity:1;transform:translateX(0)}}</style>`;
+  return h;
+}
+// Stack (example)
+function _ddStack(items, color) {
+  const entries = items.slice(0, 5).map(it => ({ l: _extractLabel(it), d: _extractDesc(it) }));
+  const medals = ['🥇','🥈','🥉','⭐','✦'];
+  let h = '<div style="display:flex;flex-direction:column;gap:6px;margin:20px 0;position:relative">';
+  entries.forEach((e, i) => {
+    const op = 1 - (i * 0.12);
+    const delay = i * 0.06;
+    const scale = 1 - (i * 0.01);
+    h += `<div style="padding:14px 18px;border-radius:14px;background:linear-gradient(135deg,${color}${Math.round(op*18).toString(16).padStart(2,'0')},${color}${Math.round(op*8).toString(16).padStart(2,'0')});border:1px solid ${color}${Math.round(op*30).toString(16).padStart(2,'0')};display:flex;align-items:center;gap:14px;position:relative;overflow:hidden;transform:scale(${scale});transition:transform .25s,box-shadow .25s,border-color .25s;animation:ddStackDrop .35s ease ${delay}s both"
+      onmouseover="this.style.transform='scale(1.02)';this.style.boxShadow='0 6px 24px ${color}25';this.style.borderColor='${color}60'"
+      onmouseout="this.style.transform='scale(${scale})';this.style.boxShadow='none';this.style.borderColor='${color}${Math.round(op*30).toString(16).padStart(2,'0')}'">
+      <div style="width:36px;height:36px;border-radius:10px;background:${color}20;border:1px solid ${color}30;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">${medals[i] || '✦'}</div>
+      <div style="flex:1">
+        <div style="font-size:14px;font-weight:800;color:#fff;line-height:1.3">${e.l}</div>
+        ${e.d ? `<div style="font-size:12px;color:#9a9aae;margin-top:3px;line-height:1.4">${e.d}</div>` : ''}
+      </div>
+      <div style="font-size:11px;font-weight:900;color:${color};opacity:.4;flex-shrink:0;letter-spacing:1px">#${i+1}</div>
+    </div>`;
+  });
+  h += '</div>';
+  h += `<style>@keyframes ddStackDrop{from{opacity:0;transform:translateY(-10px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}</style>`;
+  return h;
+}
+// Checklist (practices/action)
+function _ddChecklist(items, color) {
+  const entries = items.slice(0, 6).map(it => {
+    const raw = it.replace(/<[^>]+>/g, '');
+    const isDont = raw.startsWith('❌') || raw.toLowerCase().startsWith("don't");
+    return { l: _extractLabel(it).replace(/^[✅❌]\s*/, ''), d: _extractDesc(it), isDont };
+  });
+  let h = '<div style="display:flex;flex-direction:column;gap:8px;margin:20px 0">';
+  entries.forEach((e, i) => {
+    const ac = e.isDont ? '#ef4444' : '#22c55e';
+    const icon = e.isDont ? '✕' : '✓';
+    const emoji = e.isDont ? '🚫' : '✅';
+    const delay = i * 0.06;
+    h += `<div style="display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:14px;background:linear-gradient(135deg,${ac}08,${ac}02);border:1px solid ${ac}18;position:relative;overflow:hidden;transition:border-color .25s,transform .2s,box-shadow .25s;animation:ddCheckSlide .35s ease ${delay}s both"
+      onmouseover="this.style.borderColor='${ac}40';this.style.transform='translateX(4px)';this.style.boxShadow='0 4px 16px ${ac}12'"
+      onmouseout="this.style.borderColor='${ac}18';this.style.transform='translateX(0)';this.style.boxShadow='none'">
+      <div style="position:absolute;right:-8px;top:50%;transform:translateY(-50%);font-size:48px;opacity:.04">${emoji}</div>
+      <div style="width:36px;height:36px;border-radius:10px;background:${ac}15;border:1px solid ${ac}25;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:${ac};font-size:18px;font-weight:900;box-shadow:0 2px 8px ${ac}15">${icon}</div>
+      <div style="flex:1;position:relative;z-index:1">
+        <div style="font-size:14px;font-weight:800;color:#fff;line-height:1.3">${e.l}</div>
+        ${e.d ? `<div style="font-size:12.5px;color:#8a8a9e;margin-top:3px;line-height:1.4">${e.d}</div>` : ''}
+      </div>
+    </div>`;
+  });
+  h += '</div>';
+  h += `<style>@keyframes ddCheckSlide{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:translateX(0)}}</style>`;
+  return h;
+}
+// Pitfall cards
+function _ddPitfalls(items, color) {
+  const entries = items.slice(0, 4).map(it => ({ l: _extractLabel(it), d: _extractDesc(it) }));
+  const warnIcons = ['💣','🕳️','🔥','💀'];
+  let h = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0">';
+  entries.forEach((e, i) => {
+    const delay = i * 0.08;
+    h += `<div style="border-radius:16px;overflow:hidden;background:linear-gradient(145deg,rgba(239,68,68,.06),rgba(239,68,68,.02));border:1px solid rgba(239,68,68,.15);position:relative;transition:border-color .25s,transform .25s,box-shadow .25s;animation:ddPitShake .4s ease ${delay}s both"
+      onmouseover="this.style.borderColor='rgba(239,68,68,.35)';this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(239,68,68,.12)'"
+      onmouseout="this.style.borderColor='rgba(239,68,68,.15)';this.style.transform='translateY(0)';this.style.boxShadow='none'">
+      <div style="height:3px;background:linear-gradient(90deg,#ef4444,#ef444440)"></div>
+      <div style="padding:18px;position:relative">
+        <div style="position:absolute;right:12px;top:12px;font-size:32px;opacity:.08">${warnIcons[i] || '⚠️'}</div>
+        <div style="width:42px;height:42px;border-radius:12px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:12px">${warnIcons[i] || '⚠️'}</div>
+        <div style="font-size:15px;font-weight:800;color:#fff;line-height:1.3;margin-bottom:6px">${e.l}</div>
+        ${e.d ? `<div style="font-size:12.5px;color:#8a8a9e;line-height:1.45">${e.d}</div>` : ''}
+      </div>
+    </div>`;
+  });
+  h += '</div>';
+  h += `<style>@keyframes ddPitShake{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}</style>`;
+  return h;
+}
+function _ddGenerateDiagram(slideType, content, color) {
+  if (!content) return '';
+  const bb = content.find(b => b.kind === 'bullets');
+  if (!bb || bb.items.length < 2) return '';
+  switch(slideType) {
+    case 'how': case 'guide': return _ddTimeline(bb.items, color);
+    case 'concepts': return _ddConcepts(bb.items, color);
+    case 'example': return _ddStack(bb.items, color);
+    case 'practices': case 'action': return _ddChecklist(bb.items, color);
+    case 'pitfalls': return _ddPitfalls(bb.items, color);
+    case 'problem': return _ddProblems(bb.items, color);
+    default: return '';
+  }
+}
+
+// ═══════════ DEEP-DIVE ENGINE ═══════════
+// Deep-dive content loaded from deepdives.js above
+// This engine handles rendering, navigation, and interaction
+
+const DD = {
+  overlay: null, body: null, data: null,
+  cardNum: 0, slideIdx: 0, totalSlides: 0,
+  accent: '', accentMap: {
+    purple: '#a855f7', blue: '#3b82f6', cyan: '#06b6d4', pink: '#ec4899',
+    orange: '#f97316', green: '#22c55e', red: '#ef4444', yellow: '#eab308'
+  },
+
+  init() {
+    this.overlay = document.getElementById('ddOverlay');
+    this.body = document.getElementById('ddBody');
+    document.getElementById('ddClose').onclick = () => this.close();
+    document.getElementById('ddPrev').onclick = () => this.prev();
+    document.getElementById('ddNext').onclick = () => this.next();
+    this.overlay.addEventListener('click', e => { if (e.target === this.overlay) this.close(); });
+    document.addEventListener('keydown', e => {
+      if (!this.overlay.classList.contains('active')) return;
+      if (e.key === 'Escape') this.close();
+      if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); this.next(); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); this.prev(); }
+    });
+    // Make cards clickable
+    document.querySelectorAll('.card[data-accent]').forEach(card => {
+      const num = card.querySelector('.card-number');
+      if (!num) return;
+      const n = parseInt(num.textContent);
+      card.onclick = () => this.open(n, card.dataset.accent);
+    });
+  },
+
+  open(num, accent) {
+    if (!window.DEEP_DIVES || !window.DEEP_DIVES[num]) return;
+    this.cardNum = num;
+    this.data = window.DEEP_DIVES[num];
+    this.accent = accent;
+    this.slideIdx = 0;
+    this.totalSlides = this.data.slides.length;
+    const color = this.accentMap[accent] || this.accentMap.purple;
+    document.getElementById('ddAccentBar').style.background = color;
+    document.getElementById('ddIcon').style.background = `${color}18`;
+    document.getElementById('ddIcon').style.border = `1px solid ${color}30`;
+    document.getElementById('ddIcon').textContent = this.data.icon;
+    document.getElementById('ddTitle').textContent = this.data.title;
+    document.getElementById('ddSub').textContent = `Card ${String(num).padStart(2,'0')} · ${this.data.tag}`;
+    document.getElementById('ddSub').style.color = color;
+    document.getElementById('ddProgressFill').style.background = color;
+    document.documentElement.style.setProperty('--dd-accent', color);
+    this.overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    this.render();
+  },
+
+  close() {
+    this.overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  },
+
+  prev() { if (this.slideIdx > 0) { this.slideIdx--; this.render(); } },
+  next() { if (this.slideIdx < this.totalSlides - 1) { this.slideIdx++; this.render(); } },
+
+  render() {
+    const s = this.data.slides[this.slideIdx];
+    const color = this.accentMap[this.accent] || this.accentMap.purple;
+    const pct = ((this.slideIdx + 1) / this.totalSlides * 100).toFixed(0);
+    document.getElementById('ddProgressFill').style.width = pct + '%';
+    document.getElementById('ddPageInfo').textContent = `Page ${this.slideIdx + 1} of ${this.totalSlides}`;
+    document.getElementById('ddPrev').disabled = this.slideIdx === 0;
+    const isLast = this.slideIdx === this.totalSlides - 1;
+    document.getElementById('ddNext').disabled = isLast;
+    document.getElementById('ddNext').textContent = isLast ? 'Done ✓' : 'Next →';
+    if (isLast) {
+      document.getElementById('ddNext').disabled = false;
+      document.getElementById('ddNext').onclick = () => this.close();
+    } else {
+      document.getElementById('ddNext').onclick = () => this.next();
+    }
+
+    let html = `<div class="dd-slide active">`;
+    // Type label
+    const typeColors = {
+      hook: [color, `${color}15`], problem: ['#ef4444','rgba(239,68,68,.1)'],
+      concepts: [color, `${color}15`], how: ['#3b82f6','rgba(59,130,246,.1)'],
+      example: ['#f97316','rgba(249,115,22,.1)'], guide: ['#22c55e','rgba(34,197,94,.1)'],
+      practices: ['#06b6d4','rgba(6,182,212,.1)'], pitfalls: ['#ef4444','rgba(239,68,68,.1)'],
+      action: ['#a855f7','rgba(168,85,247,.1)'], summary: [color, `${color}15`]
+    };
+    const [tc, tb] = typeColors[s.type] || [color, `${color}15`];
+    html += `<div class="dd-type-label" style="color:${tc};background:${tb}">${s.typeLabel}</div>`;
+    html += `<div class="dd-slide-title">${s.title}</div>`;
+    // Auto-diagram for visual slide types
+    const diagramTypes = ['how','guide','concepts','example','practices','action','pitfalls','problem'];
+    const diagramHTML = diagramTypes.includes(s.type) ? _ddGenerateDiagram(s.type, s.content, color) : '';
+
+    if (diagramHTML) {
+      // Show diagram, then non-bullet content only
+      html += diagramHTML;
+      if (s.content) {
+        s.content.forEach(block => {
+          if (block.kind === 'text') html += `<div class="dd-slide-body">${block.value}</div>`;
+          else if (block.kind === 'callout') html += `<div class="dd-callout ${block.style}">${block.value}</div>`;
+          else if (block.kind === 'stats') {
+            html += `<div class="dd-stats">`;
+            block.items.forEach(st => { html += `<div class="dd-stat"><div class="dd-stat-value" style="color:${color}">${st.value}</div><div class="dd-stat-label">${st.label}</div></div>`; });
+            html += `</div>`;
+          } else if (block.kind === 'sources') {
+            html += `<div class="dd-sources"><div class="dd-sources-label">Sources</div>`;
+            block.items.forEach(src => { html += `<div class="dd-source-item">${src}</div>`; });
+            html += `</div>`;
+          }
+        });
+      }
+    } else {
+      // Render content blocks normally
+      if (s.content) {
+        s.content.forEach(block => {
+          switch(block.kind) {
+            case 'text':
+              html += `<div class="dd-slide-body">${block.value}</div>`;
+              break;
+            case 'bullets':
+              html += `<ul class="dd-bullets">`;
+              block.items.forEach(item => {
+                html += `<li style="--bullet-color:${color}"><span>${item}</span></li>`;
+              });
+              html += `</ul>`;
+              break;
+            case 'code':
+              html += `<div class="dd-code">${block.value}</div>`;
+              break;
+            case 'callout':
+              html += `<div class="dd-callout ${block.style}">${block.value}</div>`;
+              break;
+            case 'stats':
+              html += `<div class="dd-stats">`;
+              block.items.forEach(st => {
+                html += `<div class="dd-stat"><div class="dd-stat-value" style="color:${color}">${st.value}</div><div class="dd-stat-label">${st.label}</div></div>`;
+              });
+              html += `</div>`;
+              break;
+            case 'quality':
+              break;
+            case 'sources':
+              html += `<div class="dd-sources"><div class="dd-sources-label">Sources</div>`;
+              block.items.forEach(src => { html += `<div class="dd-source-item">${src}</div>`; });
+              html += `</div>`;
+              break;
+          }
+        });
+      }
+    }
+    html += `</div>`;
+    this.body.innerHTML = html;
+    this.body.scrollTop = 0;
+    // Style bullets
+    this.body.querySelectorAll('.dd-bullets li::before, .dd-bullets li').forEach(li => {});
+    const style = document.getElementById('ddBulletStyle') || document.createElement('style');
+    style.id = 'ddBulletStyle';
+    style.textContent = `.dd-bullets li::before { background: ${color}; }`;
+    document.head.appendChild(style);
+  }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  // ═══ Dynamic Card Grid Generator ═══
+  const sections = [
+    { id: 'vibe-coding', title: 'Vibe Coding & AI-Assisted Dev', range: [1, 25], accent: 'purple' },
+    { id: 'mcp', title: 'MCP Protocol & APIs', range: [26, 50], accent: 'blue' },
+    { id: 'agents', title: 'AI Agents & Multi-Agent Systems', range: [51, 75], accent: 'cyan' },
+    { id: 'llm-engineering', title: 'LLM Engineering', range: [76, 100], accent: 'pink' },
+    { id: 'ai-infra', title: 'AI Infrastructure & Security', range: [101, 125], accent: 'orange' },
+    { id: 'wearables', title: 'Wearables AI & On-Device Systems', range: [126, 150], accent: 'green' },
+    { id: 'patterns', title: 'Architecture Patterns', range: [151, 175], accent: 'purple' },
+    { id: 'data', title: 'Data & Storage Foundations', range: [176, 200], accent: 'blue' },
+    { id: 'streaming', title: 'Streaming & Advanced Data', range: [201, 225], accent: 'cyan' },
+    { id: 'infrastructure', title: 'Infrastructure & Compute', range: [226, 250], accent: 'orange' },
+    { id: 'sre', title: 'SRE, Operations & Case Studies', range: [251, 275], accent: 'red' },
+    { id: 'career', title: 'Career, Vision & Expert Synthesis', range: [276, 300], accent: 'yellow' }
+  ];
+
+  const accentCycle = ['purple','blue','cyan','pink','orange','green','red','yellow'];
+  const grid = document.getElementById('cardGrid');
+  let html = '';
+
+  sections.forEach((sec, si) => {
+    const [start, end] = sec.range;
+    html += `<div class="section-divider" id="${sec.id}">
+      <h3>${sec.title}</h3>
+      <span class="section-count">Cards ${String(start).padStart(2,'0')}–${String(end).padStart(2,'0')}</span>
+    </div>`;
+
+    for (let n = start; n <= end; n++) {
+      const d = window.DEEP_DIVES && window.DEEP_DIVES[n];
+      if (!d) continue;
+      const accent = accentCycle[(n - 1) % accentCycle.length];
+      const isMilestone = d.tag === 'milestone' || (d.title && d.title.startsWith('MILESTONE'));
+      const isWide = isMilestone;
+      html += `<div class="card${isWide ? ' wide' : ''}" data-accent="${accent}" data-num="${n}">`;
+      if (isWide) {
+        html += `<div>
+          <div class="card-number">${String(n).padStart(2,'0')}</div>
+          <div class="card-icon">${d.icon || '📘'}</div>
+          <h2>${d.title}</h2>
+          <div class="subtitle">${d.tag}</div>
+        </div><div>
+          <div class="body">Day ${n}/100 — ${d.slides && d.slides[0] && d.slides[0].content && d.slides[0].content[0] ? d.slides[0].content[0].value.replace(/<[^>]+>/g, '').substring(0, 200) : ''}</div>
+          <span class="vibe-tag">milestone</span>
+        </div>`;
+      } else {
+        const hookText = d.slides && d.slides[0] && d.slides[0].content && d.slides[0].content[0]
+          ? d.slides[0].content[0].value.replace(/<[^>]+>/g, '').substring(0, 160)
+          : '';
+        html += `<div class="card-number">${String(n).padStart(2,'0')}</div>
+          <div class="card-icon">${d.icon || '📘'}</div>
+          <h2>${d.title}</h2>
+          <div class="subtitle">Day ${n}/100</div>
+          <div class="body">${hookText}${hookText.length >= 160 ? '...' : ''}</div>
+          <span class="vibe-tag">${d.tag}</span>`;
+      }
+      html += `</div>`;
+    }
+  });
+
+  grid.innerHTML = html;
+
+  // Make dynamically generated cards clickable
+  grid.querySelectorAll('.card[data-num]').forEach(card => {
+    const n = parseInt(card.dataset.num);
+    card.onclick = () => DD.open(n, card.dataset.accent);
+  });
+
+  DD.init();
+});
+</script>
+
+</body>
+</html>
